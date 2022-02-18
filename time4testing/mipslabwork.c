@@ -16,29 +16,102 @@
 #include "mipslab.h"  /* Declatations for these labs */
 #include <string.h>
 
+void fallingLine();
+
 int mytime = 0x5957;
 int timeoutcount = 0;
 int ticks = 0;
+short imageFourth = 1;
+int screenTransition = 0;
 
 char textstring[] = "text, more text, and even more text!";
 
-const uint8_t const image[] = {
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0, 68,   0,   0, 68,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0, 68, 68, 68, 68, 68, 68,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
+uint8_t image1[] = {
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 0,
+    
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 0,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 0,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 0,
+};
+
+uint8_t image2[] = {
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+};
+
+uint8_t image3[] = {
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+};
+
+uint8_t image4[] = {
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 255, 255, 255, 255, 255,
 };
 
 /* Interrupt Service Routine */
@@ -101,19 +174,134 @@ void labwork( void )
     
     if(IFS(0) & 0x0100) {
         IFSCLR(0) = 0x0100;
-        //timeoutcount++;
+        timeoutcount++;
         if(1/*timeoutcount == 9*/) {
-            //timeoutcount = 0;
-            display_string(0, buttonsString);
-            display_string(1, switchesString);
-            display_string(2, "");
-            display_string(3, "");
-            display_update();
-            display_image(96, image);
+            timeoutcount = 0;
+            
+            fallingLine();
+
+            //display_string(0, buttonsString);
+            //display_string(1, switchesString);
+            //display_string(2, "");
+            //display_string(3, "");
+            //display_update();                                  
             //*porte = ticks++;
         }
     }
     
-    
-    
+}
+
+void fallingLine()
+{    
+    int i; //loop variable
+
+    switch (imageFourth){ //imageFourth is global variable
+        case 1:
+            if (screenTransition) {                
+                image1[31] = 0; image1[63] = 0; image1[95] = 0; image1[127] = 0;
+                image4[0] = 255; image4[32] = 255; image4[64] = 255; image4[96] = 255;
+                screenTransition = 0;
+                display_image(0, image4);   
+            }
+
+            else {        
+                for(i = 0; i < 128; i++) {
+                    if (image1[i] == 0) {
+                        image1[i-1] = 0;
+                        image1[i] = 255;
+                    }
+                }    
+            }           
+
+            if (image1[0] == 0){ //prepares a screen switch when the line is at the bottom of a screen
+                screenTransition = 1; //true
+                imageFourth++;        
+            }
+            display_image(96, image1);             
+            break;
+        case 2:
+            if (screenTransition) {
+                image2[31] = 0; image2[63] = 0; image2[95] = 0; image2[127] = 0;
+                image1[0] = 255; image1[32] = 255; image1[64] = 255; image1[96] = 255;
+                screenTransition = 0;    
+                display_image(96, image1);     
+            }
+            else {        
+                for(i = 0; i < 128; i++) {
+                    if (image2[i] == 0) {
+                        image2[i-1] = 0;
+                        image2[i] = 255;
+                    }
+                }    
+            }          
+            if (image2[0] == 0){ //prepares a screen switch when the line is at the bottom of a screen
+                screenTransition = 1; //true
+                imageFourth++;
+            }
+            display_image(64, image2);            
+            break;
+        case 3:
+            if (screenTransition) {
+                image3[31] = 0; image3[63] = 0; image3[95] = 0; image3[127] = 0;
+                image2[0] = 255; image2[32] = 255; image2[64] = 255; image2[96] = 255;
+                screenTransition = 0;
+                display_image(64, image2);                     
+            }
+            else {        
+                for(i = 0; i < 128; i++) {
+                    if (image3[i] == 0) {
+                        image3[i-1] = 0;
+                        image3[i] = 255;
+                    }
+                }    
+            }          
+            if (image3[0] == 0){ //prepares a screen switch when the line is at the bottom of a screen
+                screenTransition = 1; //true
+                imageFourth++;
+            }
+            display_image(32, image3);            
+            break;            
+        case 4:
+            if (screenTransition) {
+                image4[31] = 0; image4[63] = 0; image4[95] = 0; image4[127] = 0;
+                image3[0] = 255; image3[32] = 255; image3[64] = 255; image3[96] = 255;
+                screenTransition = 0;
+                display_image(32, image3);    
+            }
+            else {        
+                for(i = 0; i < 128; i++) {
+                    if (image4[i] == 0) {
+                        image4[i-1] = 0;
+                        image4[i] = 255;
+                    }
+                }    
+            }         
+            if (image4[0] == 0){ //prepares a screen switch when the line is at the bottom of a screen
+                screenTransition = 1; //true
+                imageFourth++;
+                if (imageFourth == 5) //Resets to topmost screen
+                    imageFourth = 1;
+            }
+            display_image(0, image4);             
+            break;
+        default: 
+            for(i = 0; i < 128; i++){
+                image1[i] = 0;
+                image2[i] = 0;
+                image3[i] = 0;
+                image4[i] = 0;                 
+            }
+            display_image(96, image1);
+            display_image(64, image2);
+            display_image(32, image3);
+            display_image(0, image4);               
+            break;
+    }
+
+
+
+    /*
+    if (image[31] == 0) 
+        image[127] = 0;
+    */
 }
