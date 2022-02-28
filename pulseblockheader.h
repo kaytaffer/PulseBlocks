@@ -38,7 +38,7 @@ void displayImage(int x, uint8_t *bitmap);    //used to display the supplied bit
 void displayPrint();       //Used by displayString to interprets and prints symbols to screen 
 void displayString(int line, char *s);  //Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters/
 void setBit(uint8_t *target, int bit, uint8_t setTo); //
-void convertPixels(uint8_t arr[32][128], uint8_t screen[512]); //
+void convertPixels(uint8_t arr[128][32], uint8_t screen[512]); //
 
 /* Tester functions
 testers.c 
@@ -52,7 +52,7 @@ void ledTest(); //increases the LED:s in a binary fashion each time it is called
 displaydata.c
 */ 
 extern uint8_t display[512]; //Bitmap array for writing to the display
-extern uint8_t foreground[32][128];  /* Matrix of elements, used for moving objects, to send to the display */
-extern uint8_t background[32][128];  /* Matrix of elements, used for fixed objects, to send to the display */
+extern uint8_t foreground[128][32];  /* Matrix of elements, used for moving objects, to send to the display */
+extern uint8_t background[128][32];  /* Matrix of elements, used for fixed objects, to send to the display */
 extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
