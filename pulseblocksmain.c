@@ -1,13 +1,13 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdint.h>
 #include "pulseblockheader.h"
 
 int main() {
 
-	while(1){
-        fallingLineRepeat();
-        delay(10);
-    }
-
-return 0;
+    convertPixels(foreground, display);
+    
+    return 0;
 }
-
