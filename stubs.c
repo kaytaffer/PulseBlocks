@@ -74,22 +74,28 @@ void _on_bootstrap() {
     PORTF = 0xFFFF;
 	PORTG = /* TODO 0x0200; same as shift?*/ (1 << 9);
 
+
+	/* OLED display initiation */
+	initiateDisplay();
+
     /* Sets up input from switches and buttons */
     TRISD = TRISD | 0x0FE0;          //0000 1111 1110 0000 to set port D (specifically switches) to input
     TRISB = TRISB | 0xFFFF;          // Sets port B to input
-    
 
 
     /* Configures initial timers and interrupt*/
 
-    T2CON = 0x70;                   // stops timer, clear control register
-    TMR2 = 0x0;                     // clear timer register
-    PR2 = 31250;                    // load period register
+	T2CON = 0x0070;       // set prescaler to 256:1
+	TMR2 = 0x0;             // Clear timer register	
+	PR2 = 0x7A12;   //0x7A12 = 31250 (the period)
     
-    IFSCLR(0) = 0x0100;
-    IPCSET(0) = 0x0C + 0x1;
-    IECSET(0) = 0x100;
-    
+	IFSCLR(0) = 0x00100 + 0x80000; //Clears the interrupt flag bit for timer 2 & SW4
+	IPCSET(2)= 0x0c + 0x01; //sets interrupt priority timer2 to 3, subpriority 1
+	IPCSET(4)= 0x0c + 0x00; //sets interrupt priority SW4 to 3, subpriority 0
+	IECSET(0) = 0x00100 + 0x80000;; // Enable timer interrupts & SW4 interrupts
+
     T2CONSET = 0x8000;              //start timer
-    
+    	
+	enableInterrupt(); //calls enableInterrupt in pulseblocks.S. Enables interrupt flags to trigger custom Interrupt Service Routine
+
 }

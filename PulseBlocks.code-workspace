@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"mipslab.h": "c",
+			"stdint.h": "c"
+		}
+	}
+}

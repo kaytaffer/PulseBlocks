@@ -4,121 +4,54 @@
 #include <string.h>
 #include "pulseblockheader.h"
 
+int timeOutCount = 0;
+int ticksSinceStart = 0;
+/* Interrupt Service Routine */
+void userISR() {
+  if(IFS(0) & 0x0100) {  //timer 2 interrupt
+    timeOutCount++;
+    IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.   
+  }
+  if(IFS(0) & 0x080000){ //Switch 4 interrupt
+  IFSCLR(0) = 0x080000; // Resets the interrupt flag for SW4 to 0. 
+  volatile int* portE = (int*) 0xbf886110;
+  *portE = ++ticksSinceStart;
+  }
 
-/* Interrupt Service Routine*/
-void user_isr(){
-    //TODO this function
+  if(timeOutCount == 9) {
+    timeOutCount = 0;
+    displayImage(0, foreground);
+  }
+  
 }
-//TODO byta till camelCase (inkl anrop). 
-
-/* Array full of elements, for writing to the display*/
-//TODO maybe move, to be accessed from data-file for cleanliness here.
-uint8_t oneScreen[] = {
-    //column 1
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 255,
-
-    //column 2
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 255,
-
-    //column 3
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 255,
-
-    //column 4
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 255,
-};
 
 
 /* Makes all elements in data array fall one move to one lesser position each time function is called
 TODO, reimagine this function with new display-to-screen-functions to come. */
+int screenTransition;
 void fallingLine(){
     int i = 0; // iteration variable
     
     for (i = 0; i < 512; i++) {
-        if (oneScreen[i] == 255) {
-            oneScreen[i-1] = 255;
-            oneScreen[i] = 0;
+        if (foreground[i] == 255) {
+            foreground[i-1] = 255;
+            foreground[i] = 0;
         }
+    }
+        if (screenTransition) {
+        foreground[511] = 255; 
+        screenTransition = 0;               
+    }
+    if (foreground[384] == 255){ //prepares a screen switch when the line is at the bottom of a screen
+        screenTransition = 1; //true
     }
 }
 
 int main() {
 
-
-
 	while(1){
-        villeIO();
+        fallingLine();
+        delay(10);
     }
 
 return 0;
