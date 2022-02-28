@@ -1,30 +1,8 @@
 #include <stdio.h>
 #include "pulseblockheader.h"
 
-int forbidRightMove[] = { /* all odd numbers <= 255*/ };
-int forbidLeftMove[] = { /* all ints n such that 0x8F < n <= oxFF*/ };
-
-/*TODO 
-void fillForbidRight() {
-    for (int i = 1; i < 256; i+=2)
-    {
-
-    }
-
-}
-*/
-
-/* TODO
-void fillForbidLeft() {
-    int j = 0;
-    for (int i = 0x8F; i < 0x100; i++){
-        forbidLeftMove[j] = i;
-        j++;
-    }
-}
-*/
-
-/* Makes all elements in data array fall one move to one lesser position each time function is called */
+/* TODO uppdatera till nya array
+Makes all elements in data array fall one move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat
 void fallingLineRepeat(){
     int i = 0; // iteration variable
@@ -43,9 +21,7 @@ void fallingLineRepeat(){
         screenTransition = 1; //true
     }
 }
-
-
-
+*/
 
 
 /* Alternate approach
