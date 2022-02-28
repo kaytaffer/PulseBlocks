@@ -1,17 +1,17 @@
-/*
-
-TODO Make project header file that makes mipslab.h obsolete
-
-*/
 #include <stdint.h>
 
-
-/*
-TODO Functions in active development. Move these functions from main to a better home when they're all grown up
+/* Functions in active development. Move these functions from main to a better home when they're all grown up
+pulseblocksmain.c
 */
-void userISR();//has associated global variables 
-void fallingLine(); //has associated global variables 
 
+/* functions related to manipulating blocks
+blockmovement.c
+*/
+void fallingLineRepeat(); // A simple line that falls along the array. Has associated global variables 
+
+/* Interrupt Service Routine
+interrupthandler.c */
+void userISR(); //Handles all interrupts from I/O; switches, timers and the like. Has associated global variables 
 
 /* assembly coded subroutines
 pulseblocks.S

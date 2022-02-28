@@ -6,7 +6,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"mipslab.h": "c",
+			"pulseblockheader.h": "c",
+			"stdio.h": "c",
 			"stdint.h": "c"
 		}
 	}

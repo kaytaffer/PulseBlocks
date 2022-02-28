@@ -89,10 +89,11 @@ void _on_bootstrap() {
 	TMR2 = 0x0;             // Clear timer register	
 	PR2 = 0x7A12;   //0x7A12 = 31250 (the period)
     
-	IFSCLR(0) = 0x00100 + 0x80000; //Clears the interrupt flag bit for timer 2 & SW4
+	IFSCLR(0) = 0xfff; //Clears all interrupt flags
 	IPCSET(2)= 0x0c + 0x01; //sets interrupt priority timer2 to 3, subpriority 1
-	IPCSET(4)= 0x0c + 0x00; //sets interrupt priority SW4 to 3, subpriority 0
-	IECSET(0) = 0x00100 + 0x80000;; // Enable timer interrupts & SW4 interrupts
+	IPCSET(4)= 0x0c + 0x00; //sets interrupt priority Switches to 3, subpriority 0
+	IECSET(0) = 0x00100; // Enable timer interrupts
+	IECSET(0) = 0x88880; // Enables switch 4-1 interrupts
 
     T2CONSET = 0x8000;              //start timer
     	
