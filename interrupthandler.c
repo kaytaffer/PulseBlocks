@@ -10,7 +10,7 @@ void userISR() {
   }
   if(timeOutCount2 == 9) {
     timeOutCount2 = 0;
-    displayImage(0, foreground);
+    displayImage(0, display);
   }
 
   if(IFS(0) & 0x080000){ //Switch 4 interrupt
