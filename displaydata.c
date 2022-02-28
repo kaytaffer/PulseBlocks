@@ -77,9 +77,9 @@ uint8_t display[] = {
     0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-uint8_t foreground[32][128];  /* Matrix of elements, used for moving objects, to send to the display */
+uint8_t foreground[128][32];  /* Matrix of elements, used for moving objects, to send to the display */
 
-uint8_t background[32][128];  /* Matrix of elements, used for fixed objects, to send to the display */
+uint8_t background[128][32];  /* Matrix of elements, used for fixed objects, to send to the display */
 
 char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 

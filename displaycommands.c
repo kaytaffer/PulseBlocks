@@ -110,7 +110,7 @@ void setBit(uint8_t *target, int bit, uint8_t setTo)
 
 // takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array
 // in the correct order for the screen
-void convertPixels(uint8_t arr[32][128], uint8_t screen[512]) {
+void convertPixels(uint8_t arr[128][32], uint8_t screen[512]) {
     int r, c;               // current row and column
     int scElement = 127;    // element of the screen array
     int bit;                // what bit of the uint8_t should be changed
