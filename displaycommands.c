@@ -155,3 +155,14 @@ void drawRectangle(int startRow, int startCol, int height, int width, uint8_t de
     verticalLine(startCol, startRow, height, dest);
     verticalLine(startCol + width - 1, startRow, height, dest);
 }
+
+void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]) { //writes the set contents of one data matrix onto another
+	int r = PIXELROWS; //iterator variable for rows
+    int c = PIXELCOLUMNS; //iterator variable for columns
+	for(r = 0; r < PIXELROWS; r++){ 
+    	for(c = 0; c < PIXELCOLUMNS; c++){
+			data2[r][c] = data2[r][c] | data1[r][c];
+			data1[r][c] = 0;
+		}
+	}
+}

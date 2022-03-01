@@ -5,10 +5,8 @@
  * For copyright and licensing, see file COPYING 
 
  * Code functionality written 2022 by V Andersson and K O'Flaherty */
-#include <stdio.h>
-#include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include <string.h>
+#include "pulseblockheader.h"
 
 /* Non-Maskable Interrupt; something bad likely happened, so hang */
 void _nmi_handler() {
@@ -98,4 +96,9 @@ void _on_bootstrap() {
     	
 	enableInterrupt(); //calls enableInterrupt in pulseblocks.S. Enables interrupt flags to trigger custom Interrupt Service Routine
 
+	/*Sets upp game background*/
+	drawRectangle(66, 0, 62, 32, background); //draws gameboard
+	drawRectangle(0, 0, 12, 32, background); //draws scoreboard
+	drawRectangle(57, 10, 10, 14, background); //draws next block area
+	
 }

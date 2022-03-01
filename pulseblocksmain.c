@@ -9,8 +9,7 @@
 int main() {
 
     int i = 0;
-    for(i = 8; i < 17; i++)
-        foreground[1][i] = 1;
+	drawRectangle(77, 10, 9, 9, foreground);
 
     while(1);
 
