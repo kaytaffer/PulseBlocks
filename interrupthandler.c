@@ -11,7 +11,9 @@ void userISR() {
   if(IFS(0) & 0x0100) {  //timer 2 interrupt
     blockFallQuotient++;
     moveSidewaysQuotient++;
-    IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0. 
+    ticks++;
+    IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.
+      if (ticks == 0xFF) ticks = 0;
   }
    
   if(getButtons())
