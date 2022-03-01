@@ -11,7 +11,7 @@ int ticks;
 /* Functions in active development. Move these functions from main to a better home when they're all grown up
 pulseblocksmain.c
 */
-void gameSetUp(uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void gameSetUp();
 
 /* functions related to manipulating blocks
 blockmovement.c

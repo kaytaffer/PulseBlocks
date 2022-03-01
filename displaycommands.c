@@ -204,7 +204,7 @@ void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][
 }
 
 // sets up background for game
-void gameSetUp(uint8_t dest[PIXELROWS][PIXELCOLUMNS])
+void gameSetUp()
 {
     showString("score", 0, 0, background);
     drawRectangle(6, 0, 12, 32, background); //draws scoreboard
@@ -213,4 +213,7 @@ void gameSetUp(uint8_t dest[PIXELROWS][PIXELCOLUMNS])
     showString("next", 58, 0, background);
     drawRectangle(57, 18, 10, 14, background); //old: drawRectangle(57, 10, 10, 14, background); //draws next block area
     drawRectangle(66, 0, 62, 32, background); //draws gameboard
+    
+    showString("0000000", 9, 2, background);
+    showString("0000000", 29, 2, background);
 }
