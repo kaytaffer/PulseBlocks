@@ -71,8 +71,13 @@ void drawRectangle(int startRow, int startCol, int height, int width, uint8_t de
 
 extern uint8_t tetrominos[7][2][4];
 
+
+//HEAP of
 // font shit
 uint8_t villefont[37][5][3];
 int charToElement(char c);
 void showChar(char c, int startRow, int startCol, uint8_t dest[128][32]);
 void showString(char str[], int startRow, int startCol, uint8_t dest[128][32]);
+int randomSeed;
+int ticks;
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);
