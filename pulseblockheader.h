@@ -1,5 +1,9 @@
 #include <stdint.h>
 
+#define PIXELROWS 128
+#define PIXELCOLUMNS 32
+#define PIXELMOVEAMOUNT 3
+
 /* Functions in active development. Move these functions from main to a better home when they're all grown up
 pulseblocksmain.c
 */
@@ -7,9 +11,10 @@ pulseblocksmain.c
 /* functions related to manipulating blocks
 blockmovement.c
 */
-void fallingLineRepeat(); // A simple line that falls along the array. Has associated global variables 
-void fillForbidLeft(); //Fills an array used to compare against forbidden moves
-void fillForbidRight(); //Fills an array used to compare against forbidden moves
+void falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Makes all elements in data array move to one lesser position each time function is called 
+int screenTransition; //associated to fallingLineRepeat */ 
+void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
+void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 
 /* Interrupt Service Routine
 interrupthandler.c */
@@ -38,7 +43,7 @@ void displayImage(int x, uint8_t *bitmap);    //used to display the supplied bit
 void displayPrint();       //Used by displayString to interprets and prints symbols to screen 
 void displayString(int line, char *s);  //Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters/
 void setBit(uint8_t *target, int bit, uint8_t setTo); //
-void convertPixels(uint8_t arr[32][128], uint8_t screen[512]); //
+void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]); //
 
 /* Tester functions
 testers.c 
@@ -52,7 +57,7 @@ void ledTest(); //increases the LED:s in a binary fashion each time it is called
 displaydata.c
 */ 
 extern uint8_t display[512]; //Bitmap array for writing to the display
-extern uint8_t foreground[32][128];  /* Matrix of elements, used for moving objects, to send to the display */
-extern uint8_t background[32][128];  /* Matrix of elements, used for fixed objects, to send to the display */
+extern uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for moving objects, to send to the display */
+extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send to the display */
 extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
