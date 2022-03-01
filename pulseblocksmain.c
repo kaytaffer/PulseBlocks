@@ -22,7 +22,7 @@ int main() {
         foreground[127][i] = 1;
     }
     
-     convertPixels(foreground, display);
+     convertPixels(foreground, background, display);
     
     return 0;
 }

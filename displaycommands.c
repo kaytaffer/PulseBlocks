@@ -110,7 +110,7 @@ void setBit(uint8_t *target, int bit, uint8_t setTo)
 
 // takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array
 // in the correct order for the screen
-void convertPixels(uint8_t arr[128][32], uint8_t screen[512]) {
+void convertPixels(uint8_t data1[128][32], uint8_t data2[128][32], uint8_t screen[512]) {
     int r, c;               // current row and column
     int scElement = 127;    // element of the screen array
     int bit;                // what bit of the uint8_t should be changed
@@ -119,8 +119,9 @@ void convertPixels(uint8_t arr[128][32], uint8_t screen[512]) {
         bit = 0;    // reset bit
         ofs = 0;    // reset ofs
         for (c = 0; c < 32; c++) { // go through cols
-            //the element of screen is calculated (128 is +1 col), the specified bit is set to arr[r][c]
-            setBit(&screen[scElement + ofs * 128], bit, arr[r][c]);
+            // the element of screen is calculated (128 is +1 col)
+            // the specified element is set to 1 if the corresponding pixel in data1 OR data2 is one
+            setBit(&screen[scElement + ofs * 128], bit, (data1[r][c] | data2[r][c]));
             bit++;
             if(bit == 8) { //if bit is 8 it should be reset and ofs should increase (next element)
                 bit = 0;
