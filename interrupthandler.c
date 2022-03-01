@@ -2,17 +2,15 @@
 #include "pulseblockheader.h"
 
 int timeOutCount2 = 0; //related to timer2
-int ticksSinceStart = 0; //used for testing 
 /* Interrupt Service Routine  Handles all interrupts from I/O; switches, timers and the like. */
 void userISR() {
   if(IFS(0) & 0x0100) {  //timer 2 interrupt
     timeOutCount2++;
     IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0. 
-    PORTE = ++ticksSinceStart;  
   }
   if(timeOutCount2 == 9) {
     timeOutCount2 = 0;
-    displayImage(0, foreground);
+    displayImage(0, display);
   }
 
   if(IFS(0) & 0x080000){ //Switch 4 interrupt

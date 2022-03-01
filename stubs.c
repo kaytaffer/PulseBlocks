@@ -84,7 +84,6 @@ void _on_bootstrap() {
 
 
     /* Configures initial timers and interrupt*/
-
 	T2CON = 0x0070;       // set prescaler to 256:1
 	TMR2 = 0x0;             // Clear timer register	
 	PR2 = 0x7A12;   //0x7A12 = 31250 (the period)

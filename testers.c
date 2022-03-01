@@ -33,3 +33,8 @@ void villeIO()
     else switchesString[3] = ' ';
     *portE = (switches << 4 ) | buttons;
 }
+
+int ticksSinceStart = 0;  
+void ledTest() {       //increases the LED:s in a binary fashion each time it is called
+    PORTE = ++ticksSinceStart;  
+}
