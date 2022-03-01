@@ -166,6 +166,7 @@ void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIX
 			data1[r][c] = 0;
 		}
 	}
+}
 
 int charToElement(char c)
 {

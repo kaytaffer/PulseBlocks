@@ -11,8 +11,8 @@ pulseblocksmain.c
 /* functions related to manipulating blocks
 blockmovement.c
 */
-void falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Makes all elements in data array move to one lesser position each time function is called 
-int screenTransition; //associated to fallingLineRepeat */ 
+int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Makes all elements in data array move to one lesser 
+position each time function is called. Returns 1 if elements remain free to fall, return 0 if they've hit something underneath*/ 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
