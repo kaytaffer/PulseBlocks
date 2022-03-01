@@ -157,7 +157,8 @@ void drawRectangle(int startRow, int startCol, int height, int width, uint8_t de
 }
 
 
-void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]) { //writes the set contents of one data matrix onto another
+void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS])
+{ //writes the set contents of one data matrix onto another
 	int r = PIXELROWS; //iterator variable for rows
     int c = PIXELCOLUMNS; //iterator variable for columns
 	for(r = 0; r < PIXELROWS; r++){ 
@@ -166,6 +167,7 @@ void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIX
 			data1[r][c] = 0;
 		}
 	}
+}
 
 int charToElement(char c)
 {
