@@ -131,3 +131,27 @@ void convertPixels(uint8_t data1[128][32], uint8_t data2[128][32], uint8_t scree
         scElement--; //for the next row: scElement decreases!
     }
 }
+
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
+{
+    int c;
+    for (c = startCol; c < startCol + length && c < 32; c++) {
+        dest[startRow][c] = 1;
+    }
+}
+
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
+{
+    int r;
+    for (r = startRow; r < startRow + length && r < 128; r++) {
+        dest[r][startCol] = 1;
+    }
+}
+
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32])
+{
+    horizontalLine(startCol, startRow, width, dest);
+    horizontalLine(startCol, startRow + height - 1, width, dest);
+    verticalLine(startCol, startRow, height, dest);
+    verticalLine(startCol + width - 1, startRow, height, dest);
+}
