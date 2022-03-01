@@ -69,3 +69,14 @@ extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
 
 extern uint8_t tetrominos[7][2][4];
+
+
+//HEAP of
+// font shit
+uint8_t villefont[37][5][3];
+int charToElement(char c);
+void showChar(char c, int startRow, int startCol, uint8_t dest[128][32]);
+void showString(char str[], int startRow, int startCol, uint8_t dest[128][32]);
+int randomSeed;
+int ticks;
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);

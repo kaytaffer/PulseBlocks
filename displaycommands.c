@@ -156,6 +156,7 @@ void drawRectangle(int startRow, int startCol, int height, int width, uint8_t de
     verticalLine(startCol + width - 1, startRow, height, dest);
 }
 
+
 void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]) { //writes the set contents of one data matrix onto another
 	int r = PIXELROWS; //iterator variable for rows
     int c = PIXELCOLUMNS; //iterator variable for columns
@@ -165,4 +166,31 @@ void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIX
 			data1[r][c] = 0;
 		}
 	}
+
+int charToElement(char c)
+{
+    // in the array, 0-9 is element 0-9
+    // and A-Z is element 10-35
+    // space is 36
+    if(c >= '0' && c <= '9') return (int) c - '0';
+    if(c >= 'A' && c <= 'Z') return (int) c - 'A' + 10;
+    if(c >= 'a' && c <= 'z') return (int) c - 'a' + 10;
+    else return 36;
+}
+
+void showChar(char c, int startRow, int startCol, uint8_t dest[128][32])
+{
+    int x, y;
+    for (y = 0; y < 3; y++) {
+        for (x = 0; x < 5; x++)
+            dest[x + startRow][y + startCol] = villefont[charToElement(c)][x][y];
+    }
+}
+
+void showString(char str[], int startRow, int startCol, uint8_t dest[128][32])
+{
+    int i = 0;
+    for (i = 0; str[i]; i++)
+        showChar(str[i], startRow, (startCol + 4 * i), dest);
+
 }
