@@ -57,6 +57,8 @@ extern uint8_t background[128][32];  /* Matrix of elements, used for fixed objec
 extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
 
-void horizontalLine(int, int, int, uint8_t[128][32]);
-void verticalLine(int, int, int, uint8_t[128][32]);
-void drawRectangle(int, int, int, int, uint8_t[128][32]);
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32]);
+
+extern uint8_t tetrominos[7][2][4];

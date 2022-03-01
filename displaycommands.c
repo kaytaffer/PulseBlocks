@@ -148,7 +148,7 @@ void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
     }
 }
 
-void drawRectangle(int startCol, int startRow, int height, int width, uint8_t dest[128][32])
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32])
 {
     horizontalLine(startCol, startRow, width, dest);
     horizontalLine(startCol, startRow + height - 1, width, dest);
