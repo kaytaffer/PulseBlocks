@@ -70,3 +70,6 @@ void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
 void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32]);
 
 extern uint8_t tetrominos[7][2][4];
+int randomSeed;
+int ticks;
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);

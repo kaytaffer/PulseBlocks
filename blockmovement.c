@@ -44,3 +44,13 @@ int screenTransition; //associated to fallingLineRepeat */
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
+
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
+{
+    int r, c;
+    for (r = 0; r < 2 * 3; r++) {
+        for (c = 0; c < 4 * 3; c++) {
+            target[r + 5][c + 5] = tetrominos[ticks % 7][r / 3][c / 3];
+        }
+    }
+}
