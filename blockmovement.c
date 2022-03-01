@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "pulseblockheader.h"
 
-uint8_t finalFall = 0;
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     int r = PIXELROWS; //iterator variable for rows
@@ -59,14 +58,10 @@ int screenTransition; //associated to fallingLineRepeat */
     }
 }
 
-
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
 
     //TODO implement
 }
-
-void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
-void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 
 void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
 {
