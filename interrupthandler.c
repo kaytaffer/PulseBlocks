@@ -25,12 +25,14 @@ void userISR() {
         leftMove(foreground, PIXELMOVEAMOUNT);
       if(getButtons() & 0b100)
         rotate(foreground);
-      if(getButtons() & 0b10)
+      if(getButtons() & 0b10) {
         while(falling(foreground, PIXELMOVEAMOUNT)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
         writeToBackground(foreground, background);  //
         drawRectangle(77, 10, 9, 9, foreground);     //TODO, remove test rectangle, implement block generation
+      }
       if(getButtons() & 0b1)
         rightMove(foreground, PIXELMOVEAMOUNT); 
+      
       convertPixels(foreground, background, display);
       displayImage(0, display);
     }
