@@ -2,7 +2,7 @@
 #include "pulseblockheader.h"
 
 int blockFallQuotient = 0; //timeout count related to timer2
-int moveSidewaysQuotient = 0;
+int moveSidewaysQuotient = 0; //timeout count related to timer2
 /* Interrupt Service Routine  Handles all interrupts from I/O; switches, timers and the like. */
 void userISR() {
   int moveLeft = 0;
@@ -15,7 +15,7 @@ void userISR() {
     IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.
       if (ticks == 0xFF) ticks = 0;
   }
-   
+  
   if(getButtons())
     moveSidewaysQuotient = 2; 
   if (moveSidewaysQuotient == 2){
@@ -25,6 +25,8 @@ void userISR() {
         leftMove(foreground, PIXELMOVEAMOUNT);
       if(getButtons() & 0b1)
         rightMove(foreground, PIXELMOVEAMOUNT);
+      if(getButtons() & 0b100)
+        rotate(foreground);
       convertPixels(foreground, background, display);
       displayImage(0, display);
     }
@@ -32,7 +34,7 @@ void userISR() {
 
   if(blockFallQuotient == 9) {
     blockFallQuotient = 0;
-    falling(foreground, 1);
+    falling(foreground, 3);
     convertPixels(foreground, background, display);
     displayImage(0, display);
   }

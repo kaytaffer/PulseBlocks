@@ -15,6 +15,7 @@ void falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Mak
 int screenTransition; //associated to fallingLineRepeat */ 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
+void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
 
 /* Interrupt Service Routine
 interrupthandler.c */
@@ -43,8 +44,12 @@ void displayImage(int x, uint8_t *bitmap);    //used to display the supplied bit
 void displayPrint();       //Used by displayString to interprets and prints symbols to screen 
 void displayString(int line, char *s);  //Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters/
 void setBit(uint8_t *target, int bit, uint8_t setTo); //
-
 void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]); //
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32]);
+void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]); //writes the set contents of one data matrix onto another
+
 
 /* Tester functions
 testers.c 
@@ -53,21 +58,15 @@ void villeIO(); /* reads which buttons &| switches are toggled and lights a corr
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called
 
-
 /* Data arrays and extern/global variables
 displaydata.c
 */ 
 extern uint8_t display[512]; //Bitmap array for writing to the display
-
 extern uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for moving objects, to send to the display */
 extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send to the display */
 
 extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
-
-void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
-void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
-void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32]);
 
 extern uint8_t tetrominos[7][2][4];
 
