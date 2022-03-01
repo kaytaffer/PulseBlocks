@@ -77,9 +77,9 @@ uint8_t display[] = {
     0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-uint8_t foreground[128][32];  /* Matrix of elements, used for moving objects, to send to the display */
+uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for moving objects, to send to the display */
 
-uint8_t background[128][32];  /* Matrix of elements, used for fixed objects, to send to the display */
+uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send to the display */
 
 char textrows[4][16]; //allows for saving 16-character strings in 4 rows
 
@@ -246,7 +246,7 @@ uint8_t tetrominos[7][2][4] =
     },
 };
 
-uint8_t villefont[37][5][3] =
+uint8_t villefont[37][FONTHEIGHT][FONTWIDTH] =
 {
     { // 0
         {1,1,1},

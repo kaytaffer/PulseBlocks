@@ -3,10 +3,15 @@
 #define PIXELROWS 128
 #define PIXELCOLUMNS 32
 #define PIXELMOVEAMOUNT 3
+#define FONTHEIGHT 5
+#define FONTWIDTH 3
+int randomSeed;
+int ticks;
 
 /* Functions in active development. Move these functions from main to a better home when they're all grown up
 pulseblocksmain.c
 */
+void gameSetUp(uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
 /* functions related to manipulating blocks
 blockmovement.c
@@ -16,6 +21,7 @@ int screenTransition; //associated to fallingLineRepeat */
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);
 
 /* Interrupt Service Routine
 interrupthandler.c */
@@ -45,9 +51,9 @@ void displayPrint();       //Used by displayString to interprets and prints symb
 void displayString(int line, char *s);  //Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters/
 void setBit(uint8_t *target, int bit, uint8_t setTo); //
 void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]); //
-void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
-void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32]);
-void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32]);
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]); //writes the set contents of one data matrix onto another
 
 
@@ -70,13 +76,8 @@ extern const uint8_t const font[128*8]; //A library that's used to convert chara
 
 extern uint8_t tetrominos[7][2][4];
 
-
-//HEAP of
-// font shit
-uint8_t villefont[37][5][3];
+/* related to font and writing strings */
+uint8_t villefont[37][FONTHEIGHT][FONTWIDTH];
 int charToElement(char c);
-void showChar(char c, int startRow, int startCol, uint8_t dest[128][32]);
-void showString(char str[], int startRow, int startCol, uint8_t dest[128][32]);
-int randomSeed;
-int ticks;
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);
+void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
