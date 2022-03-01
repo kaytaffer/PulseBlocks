@@ -1,36 +1,46 @@
 #include <stdio.h>
 #include "pulseblockheader.h"
 
-/* TODO uppdatera till nya array
-Makes all elements in data array fall one move to one lesser position each time function is called 
-int screenTransition; //associated to fallingLineRepeat
-void fallingLineRepeat(){
-    int i = 0; // iteration variable
-    
-    for (i = 0; i < 512; i++) {
-        if (foreground[i] == 255) {
-            foreground[i-1] = 255;
-            foreground[i] = 0;
+void falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
+int screenTransition; //associated to fallingLineRepeat */ 
+    int r = PIXELROWS; //iterator variable for rows
+    int c = PIXELCOLUMNS; //iterator variable for columns
+    for(r = PIXELROWS - 1; r >= 0; r--){ 
+        for(c = 0; c < PIXELCOLUMNS; c++){
+            if(data[r][c]){
+                data[r][c] = 0;
+                data[r + pixelmoveamount][c] = 1;
+            }
         }
     }
-        if (screenTransition) {
-        foreground[511] = 255; 
-        screenTransition = 0;
-    }
-    if (foreground[384] == 255){ //prepares a screen switch when the line is at the bottom of a screen
-        screenTransition = 1; //true
+}
+
+void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
+int screenTransition; //associated to fallingLineRepeat */ 
+    int r = PIXELROWS; //iterator variable for rows
+    int c = PIXELCOLUMNS; //iterator variable for columns
+    for(c = 0; c < PIXELCOLUMNS; c++){          //column by column
+        for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
+            if(data[r][c]){                     //
+                data[r][c] = 0;                 
+                data[r][c - pixelmoveamount] = 1;
+            }
+        }
     }
 }
-*/
+void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
+int screenTransition; //associated to fallingLineRepeat */ 
+    int r = PIXELROWS; //iterator variable for rows
+    int c = PIXELCOLUMNS; //iterator variable for columns
+    for(c = PIXELCOLUMNS - 1; c >= 0; c--){
+        for(r = PIXELROWS - 1; r >= 0; r--) {
+            if(data[r][c]){
+                data[r][c] = 0;
+                data[r][c + pixelmoveamount] = 1;
+            }
+        }
+    }
+}
 
-
-/* Alternate approach
-
-Two array method (probably wise either way)
-
-Background array has two frames, the outer edge set black, the inner edge set clear.
-For a left/right moving block, checks if pixel is light, then black and forbids movement.
-Might cause bugs, when placing blocks close to each other. Hm, maybe use this for foreground array 
-but exclude these values from falling. Suspect lot of special cases.
-
-*/
+void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
+void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
