@@ -17,6 +17,8 @@ int checkGameOver(){ //TODO: implement
 void pieceDropped()
 {
     writeToBackground(foreground, background);
+    updateScore();
+    updatePulse(); // should be moved when pulse shit is implemented
     checkGameOver();
     getPiece();
     getNextPiece();

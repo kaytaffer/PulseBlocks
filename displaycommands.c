@@ -164,6 +164,29 @@ void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][
 
 }
 
+void showDigit(int digit, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
+{
+    int x, y;
+    for (y = 0; y < FONTWIDTH; y++) {
+        for (x = 0; x < FONTHEIGHT; x++)
+            dest[x + startRow][y + startCol] = font[digit][x][y];
+    }
+}
+
+void showInt(int number, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
+{
+    int printed = 0;
+    int nums[7];
+    int i;
+    for (i = 0; i < 7; i++) {
+        nums[6 - i] = number % 10;
+        number = number - nums[6 - i];
+        number = number / 10;
+    }
+    for (i = 0; i < 7; i++)
+        showDigit(nums[i], startRow, (startCol + (FONTWIDTH + 1) * i), dest);
+}
+
 // sets up background for game
 void gameSetUp()
 {
@@ -186,12 +209,20 @@ void gameSetUp()
     showString("0000000", PULSEBOARDSTART + 2, 2, background);
 }
 
-void showScore()
+void updateScore()
 {
-    
+    score = 1234567; // DELETE THIS LATER
+    if(score > 9999999)
+        showString("ERROR  ", SCOREBOARDSTART + 2, 2, background);
+    else
+        showInt(score, SCOREBOARDSTART + 2, 2, background);
 }
 
-void showPulse()
+void updatePulse()
 {
-    
+    pulse = 9876543; // DELETE THIS LATER
+    if(pulse > 9999999)
+        showString("ERROR  ", SCOREBOARDSTART + 2, 2, background);
+    else
+        showInt(pulse, PULSEBOARDSTART + 2, 2, background);
 }
