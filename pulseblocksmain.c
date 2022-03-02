@@ -6,6 +6,8 @@ int main() {
     ticks = 0;
     nextPiece = ticks % 7;
     
+    /*Sets upp game background*/
+    gameSetUp();
     getNextPiece();
     getPiece();
     getNextPiece();

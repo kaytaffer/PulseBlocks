@@ -92,7 +92,4 @@ void _on_bootstrap() {
     	
 	enableInterrupt(); //calls enableInterrupt in pulseblocks.S. Enables interrupt flags to trigger custom Interrupt Service Routine
 
-	/*Sets upp game background*/
-    gameSetUp();
-	
 }
