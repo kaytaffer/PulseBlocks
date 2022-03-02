@@ -23,8 +23,11 @@
 
 #define DROPAREAROW (GAMEBOARDSTART + 1)
 #define DROPAREACOLUMN 10
+#define DROPROWPIXEL (DROPAREAROW + 6)
+#define DROPCOLUMNPIXEL (DROPAREACOLUMN + 6)
 #define NEXTAREAROW (NEXTBLOCKROW + 2)//59
 #define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
+
 
 int ticks;
 int nextPiece;
@@ -122,3 +125,4 @@ contains functions used for testing new code and implementations
 void villeIO(); /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called
+void ledContent(int); //lights the LED:s in binary representation of argument up to 2^7.
