@@ -1,6 +1,10 @@
+/* displaydata.c
+Data arrays and extern/global variables
+See file COPYING for copyright information
+*/
 #include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h> 
-#include "pulseblockheader.h"
+#include <pic32mx.h>  /* processor defines library */
+#include "pulseblockheader.h" /*project declarations */
 
 /* Bitmap array for writing to the display */
 uint8_t display[] = {
@@ -81,9 +85,14 @@ uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for mo
 
 uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send to the display */
 
+//TODO Made obsolete by Ville, delete in its entirety?
+/*
 char textrows[4][16]; //allows for saving 16-character strings in 4 rows
+*/
 
-const uint8_t const font[] = {      //A library of that's used to convert characters into their corresponding symbols
+//TODO Made obsolete by villefont, delete in its entirety?
+/*
+const uint8_t const font[] = {      //A library that's used to convert characters into their corresponding symbols
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -213,7 +222,10 @@ const uint8_t const font[] = {      //A library of that's used to convert charac
 	0, 0, 4, 2, 4, 2, 0, 0,
 	0, 120, 68, 66, 68, 120, 0, 0,
 };
+*/
 
+
+//matrix with bitmap arrays for the tetrominos
 uint8_t tetrominos[7][2][4] =
 {
     { //line

@@ -1,5 +1,8 @@
-#include <stdio.h>
-#include "pulseblockheader.h"
+/* blockmovement.c
+functions related to manipulating blocks
+For copyright and licensing, see file COPYING */
+
+#include "pulseblockheader.h" /*project declarations */
 
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 

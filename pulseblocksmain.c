@@ -1,9 +1,6 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdint.h>
-#include "pulseblockheader.h"
+#include <stdint.h> /* Declarations of uint_8 etc */
+#include "pulseblockheader.h" /*project declarations */
 
 int main() {
     

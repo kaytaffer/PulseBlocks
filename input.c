@@ -1,12 +1,10 @@
 /*
-inputs.c 
-
+input.c 
 This file contains functions relating to inputs from the Basic I/O Shield
-
 See file COPYING for copyright information
 */
-#include <stdint.h>
-#include <pic32mx.h>
+#include <stdint.h> //definitions of uint_t and the like
+#include <pic32mx.h> //defines for chipkit addresses etc
 
 int getSwitches(){    //gets bits 11:8 of Port D (the switches).
     return (PORTD >> 8) & 0x000F; //return 4 lsb data from switches SW4-SW1.

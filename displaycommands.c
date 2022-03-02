@@ -1,14 +1,10 @@
-/* mipslabfunc.c
-   This file is mostly written 2015 by F Lundevall
-   Some parts are original code written by Axel Isaksson
-
-    functions adapted for use in project PulseBlocks by K O'Flaherty
-
-   For copyright and licensing, see file COPYING */
+/* displaycommands.c
+Functions related to OLED
+For copyright and licensing, see file COPYING */
 
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "pulseblockheader.h"  
+#include "pulseblockheader.h" /*project declarations */
 
 uint8_t spiManipulate(uint8_t data) { //Serial Peripheral Interface interfacing
 	while(!(SPI2STAT & 0x08));  //while inte SPITBE: medans det finns något i SPI2TXB (memory mapped to SPI2BUF) registret väntar man
@@ -67,6 +63,8 @@ void displayImage(int x, uint8_t *bitmap) {
 	}
 }
 
+//TODO Made obsolete by Ville, delete in its entirety? 
+/*
 void displayPrint(void) {
 	int i, j, k;
 	char c;
@@ -88,8 +86,10 @@ void displayPrint(void) {
 		}
 	}
 }
+*/
 
-/*Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters*/
+//TODO Made obsolete by Ville, delete in its entirety?
+/*Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters
 void displayString(int row, char *c) {
 	int i; //iterator variable
 	for(i = 0; i < 16; i++)         //For the 16 spots in the character matrix
@@ -100,6 +100,7 @@ void displayString(int row, char *c) {
 			textrows[row][i] = ' '; //then fills the rest of the line with empty space
   displayPrint();                     //calls function that interprets and prints symbols to screen 
 }
+*/
 
 // takes a target uint8_t, of which the bit with index "bit" is changed to "setTo"
 void setBit(uint8_t *target, int bit, uint8_t setTo)
@@ -158,7 +159,6 @@ void drawRectangle(int startRow, int startCol, int height, int width, uint8_t de
     verticalLine(startCol, startRow, height, dest);
     verticalLine(startCol + width - 1, startRow, height, dest);
 }
-
 
 void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS])
 { //writes the set contents of one data matrix onto another
