@@ -6,6 +6,7 @@ For copyright and licensing, see file COPYING */
 
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
+    uint8_t freefall = 1;
     int r = PIXELROWS; //iterator variable for rows
     int c = PIXELCOLUMNS; //iterator variable for columns
     for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
@@ -14,12 +15,12 @@ int screenTransition; //associated to fallingLineRepeat */
                 data[r][c] = 0;                 //make pixel black
                 data[r + pixelmoveamount][c] = 1;   //and make the one underneath white
                 if (background[r + pixelmoveamount + 1][c]){
-                    return 0;
+                    freefall = 0;
                 }
             }
         }
     }
-    return 1;
+    return freefall;
 }
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
@@ -66,12 +67,35 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     //TODO implement
 }
 
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
+// this should be deleted later
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column)
 {
     int r, c;
     for (r = 0; r < 2 * 3; r++) {
         for (c = 0; c < 4 * 3; c++) {
-            target[r + 5][c + 5] = tetrominos[ticks % 7][r / 3][c / 3];
+            target[r + row][c + column] = tetrominos[ticks % 7][r / 3][c / 3];
         }
     }
+}
+
+void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS])
+{
+    int r, c;
+    for (r = 0; r < 2 * 3; r++) {
+        for (c = 0; c < 4 * 3; c++) {
+            target[r + row][c + col] = tetrominos[pieceID][r / 3][c / 3];
+        }
+    }
+}
+
+void getNextPiece()
+{
+    nextPiece = ticks % 7;
+    showPiece(NEXTAREAROW, NEXTAREACOLUMN, nextPiece, background);
+}
+
+void getPiece()
+{
+    showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
+    
 }

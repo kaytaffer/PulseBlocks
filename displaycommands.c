@@ -167,13 +167,31 @@ void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][
 // sets up background for game
 void gameSetUp()
 {
-    showString("score", 0, 0, background);
-    drawRectangle(6, 0, 12, 32, background); //draws scoreboard
-    showString("pulse", 20, 0, background);
-    drawRectangle(26, 0, 12, 32, background);
-    showString("next", 58, 0, background);
-    drawRectangle(57, 18, 10, 14, background); //draws next block area
-    drawRectangle(66, 0, 62, 32, background); //draws gameboard
-    showString("0000000", 9, 2, background);
-    showString("0000000", 29, 2, background);
+    // scoreboard
+    showString("score", SCOREBOARDSTART - (FONTHEIGHT + 1), 0, background);
+    drawRectangle(SCOREBOARDSTART, 0, TEXTBOXHEIGHT, PIXELCOLUMNS, background);
+    
+    // pulseboard
+    showString("pulse", PULSEBOARDSTART - (FONTHEIGHT + 1), 0, background);
+    drawRectangle(PULSEBOARDSTART, 0, TEXTBOXHEIGHT, PIXELCOLUMNS, background);
+    
+    // next block
+    //showString("next", NEXTBLOCKROW + 1, 0, background);
+    drawRectangle(NEXTBLOCKROW, NEXTBLOCKCOLUMN, NEXTBLOCKHEIGHT, NEXTBLOCKWIDTH, background);
+    
+    // game board
+    drawRectangle(GAMEBOARDSTART, 0, GAMEBOARDHEIGHT, PIXELCOLUMNS, background);
+    
+    showString("0000000", SCOREBOARDSTART + 2, 2, background);
+    showString("0000000", PULSEBOARDSTART + 2, 2, background);
+}
+
+void showScore()
+{
+    
+}
+
+void showPulse()
+{
+    
 }

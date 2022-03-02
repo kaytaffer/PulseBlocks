@@ -4,8 +4,30 @@
 #define PIXELMOVEAMOUNT 3
 #define FONTHEIGHT 5
 #define FONTWIDTH 3
-int randomSeed;
+#define BLOCKHEIGHT 3
+#define BLOCKWIDTH 5
+
+// game background constants
+
+#define SCOREBOARDSTART 7
+#define PULSEBOARDSTART 27
+#define TEXTBOXHEIGHT (4 + FONTHEIGHT) // 9
+
+#define GAMEBOARDHEIGHT (3 * 20 + 2) // 62
+#define GAMEBOARDSTART (PIXELROWS - GAMEBOARDHEIGHT) // 66
+
+#define NEXTBLOCKHEIGHT 10
+#define NEXTBLOCKROW /*(GAMEBOARDSTART - NEXTBLOCKHEIGHT + 1)*/ 57
+#define NEXTBLOCKWIDTH (3 * BLOCKWIDTH + 2) //14
+#define NEXTBLOCKCOLUMN (PIXELCOLUMNS - NEXTBLOCKWIDTH) // 18
+
+#define DROPAREAROW (GAMEBOARDSTART + 1)
+#define DROPAREACOLUMN 10
+#define NEXTAREAROW (NEXTBLOCKROW + 2)//59
+#define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
+
 int ticks;
+int nextPiece;
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -22,7 +44,11 @@ if they've hit something underneath*/
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]); //TODO add comment
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column); //TODO add comment
+void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS]);
+void getNextPiece();
+void getPiece();
+void pieceDropped();
 
 /* displaycommands.c
 Functions related to OLED
@@ -80,9 +106,10 @@ void enableInterrupt(); //enables interrupt flags to trigger custom Interrupt Se
 void delay(int); /* helper function, creates delay by occupying processor for a while. Accepts milliseconds as 
 argument. */                    
 
-/* Tester functions
+/* 
 testers.c 
-contains functions used for testing new code and implementations*/
+contains functions used for testing new code and implementations
+*/
 void villeIO(); /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called
