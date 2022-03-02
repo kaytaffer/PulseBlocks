@@ -1,29 +1,22 @@
 #include <stdio.h>
 #include "pulseblockheader.h"
 
-uint8_t finalFall = 0;
-void falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
+int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     int r = PIXELROWS; //iterator variable for rows
     int c = PIXELCOLUMNS; //iterator variable for columns
-    if(finalFall){                                     //TODO, flytta till och låta en annan funktion hantera allt detta
-        finalFall = 0;                               
-        writeToBackground(foreground, background);  //If there's a white pixel
-        drawRectangle(77, 10, 9, 9, foreground);     //TODO, remove test rectangle
-    }
-    else {
-        for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
-            for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
-                if(data[r][c] == 1){                //If there's a white pixel
-                    data[r][c] = 0;                 //make pixel black
-                    data[r + pixelmoveamount][c] = 1;   //and make the one underneath white
-                    if (background[r + pixelmoveamount + 1][c]){
-                        finalFall = 1;
-                    }
+    for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
+        for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
+            if(data[r][c] == 1){                //If there's a white pixel
+                data[r][c] = 0;                 //make pixel black
+                data[r + pixelmoveamount][c] = 1;   //and make the one underneath white
+                if (background[r + pixelmoveamount + 1][c]){
+                    return 0;
                 }
             }
         }
     }
+    return 1;
 }
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
@@ -65,14 +58,10 @@ int screenTransition; //associated to fallingLineRepeat */
     }
 }
 
-
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
 
     //TODO implement
 }
-
-void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
-void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 
 void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
 {
@@ -83,4 +72,3 @@ void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
         }
     }
 }
-
