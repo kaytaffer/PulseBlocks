@@ -95,7 +95,7 @@ void getNextPiece()
 
 void getPiece()
 {
-    showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, background);
+    showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     
 }
 
