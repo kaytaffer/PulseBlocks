@@ -66,12 +66,12 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     //TODO implement
 }
 
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS])
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column)
 {
     int r, c;
     for (r = 0; r < 2 * 3; r++) {
         for (c = 0; c < 4 * 3; c++) {
-            target[r + 5][c + 5] = tetrominos[ticks % 7][r / 3][c / 3];
+            target[r + row][c + column] = tetrominos[ticks % 7][r / 3][c / 3];
         }
     }
 }

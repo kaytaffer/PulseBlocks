@@ -4,7 +4,10 @@
 #define PIXELMOVEAMOUNT 3
 #define FONTHEIGHT 5
 #define FONTWIDTH 3
-int randomSeed;
+#define DROPAREAROW 67
+#define DROPAREACOLUMN 9 
+//#define NEXTAREAROW 
+//#define NEXTARECOLUMN 
 int ticks;
 
 /* pulseblocksmain.c
@@ -22,7 +25,7 @@ if they've hit something underneath*/
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]); //TODO add comment
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column); //TODO add comment
 
 /* displaycommands.c
 Functions related to OLED
@@ -80,9 +83,10 @@ void enableInterrupt(); //enables interrupt flags to trigger custom Interrupt Se
 void delay(int); /* helper function, creates delay by occupying processor for a while. Accepts milliseconds as 
 argument. */                    
 
-/* Tester functions
+/* 
 testers.c 
-contains functions used for testing new code and implementations*/
+contains functions used for testing new code and implementations
+*/
 void villeIO(); /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called

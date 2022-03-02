@@ -3,12 +3,9 @@
 #include "pulseblockheader.h" /*project declarations */
 
 int main() {
-    
-    randomSeed = 0;
     ticks = 0;
     
-    int i = 0;
-	drawRectangle(77, 10, 9, 9, foreground);
+    showRandomPiece(foreground, DROPAREAROW, DROPAREACOLUMN);
 
     while(1);
 
