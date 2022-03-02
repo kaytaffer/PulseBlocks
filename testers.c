@@ -1,8 +1,9 @@
-#include <stdio.h>
-#include <stdint.h>  
-#include <pic32mx.h>  
-#include <string.h>
-#include "pulseblockheader.h"
+/* testers.c 
+contains functions used for testing new code and implementations*/
+
+#include <stdint.h> /* Declarations of uint_8 etc */ 
+#include <pic32mx.h> /* Declarations of system-specific addresses etc */
+#include "pulseblockheader.h" /*project declarations */
 
 /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */

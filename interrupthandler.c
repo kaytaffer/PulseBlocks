@@ -1,3 +1,8 @@
+/* interrupthandler.c
+Interrupt Service Routine
+See file COPYING for copyright information
+*/
+
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "pulseblockheader.h"
 
