@@ -99,11 +99,3 @@ void getPiece()
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     
 }
-
-//what to do when piece dropped
-void pieceDropped()
-{
-    writeToBackground(foreground, background);
-    getPiece();
-    getNextPiece();
-}
