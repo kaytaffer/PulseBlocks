@@ -5,7 +5,7 @@
 #define FONTHEIGHT 5
 #define FONTWIDTH 3
 #define DROPAREAROW 67
-#define DROPAREACOLUMN 9 
+#define DROPAREACOLUMN 10 
 #define NEXTAREAROW 59
 #define NEXTAREACOLUMN 20
 int ticks;

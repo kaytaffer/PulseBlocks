@@ -7,7 +7,6 @@ See file COPYING for copyright information
 #include "pulseblockheader.h"
 
 int blockFallQuotient = 0; //timeout count related to timer2
-int moveBlocksQuotient = 0; //timeout count related to timer2
 /* Interrupt Service Routine  Handles all interrupts from I/O; switches, timers and the like. */
 void userISR() {
   int moveLeft = 0;
@@ -15,39 +14,34 @@ void userISR() {
 
   if(IFS(0) & 0x0100) {  //timer 2 interrupt
     blockFallQuotient++;
-    moveBlocksQuotient++;
     ticks++;
     IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.
       if (ticks == 0xFF) ticks = 0;
   }
   
-  if(getButtons())  //Block manipulation
-    moveBlocksQuotient = 2; 
-  if (moveBlocksQuotient == 2){
-    moveBlocksQuotient = 0;
+  if (getButtons()){
     if(getButtons()) {
       if(getButtons() & 0b1000)
         leftMove(foreground, PIXELMOVEAMOUNT);
-      if(getButtons() & 0b100)
-        rotate(foreground);
-      if(getButtons() & 0b10) {
+      if(getButtons() & 0b100){
         while(falling(foreground, PIXELMOVEAMOUNT)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
-        writeToBackground(foreground, background);  //
-        showRandomPiece(foreground, DROPAREAROW, DROPAREACOLUMN);
+        pieceDropped();
       }
+      if(getButtons() & 0b10) 
+        rotate(foreground);
       if(getButtons() & 0b1)
         rightMove(foreground, PIXELMOVEAMOUNT); 
       
       convertPixels(foreground, background, display);
       displayImage(0, display);
+      delay(200); //modifies how quickly the user may input new commands through the buttons
     }
   }
 
-  if(blockFallQuotient == 9) {
+  if(blockFallQuotient == 100) {
     blockFallQuotient = 0;
     if(!falling(foreground, PIXELMOVEAMOUNT)){                 
-        writeToBackground(foreground, background);  //
-        showRandomPiece(foreground, DROPAREAROW, DROPAREACOLUMN);
+      pieceDropped();
     }
     convertPixels(foreground, background, display);
     displayImage(0, display);
