@@ -6,7 +6,9 @@ int main() {
     ticks = 0;
     nextPiece = ticks % 7;
     
-    showRandomPiece(foreground, DROPAREAROW, DROPAREACOLUMN);
+    getNextPiece();
+    getPiece();
+    getNextPiece();
 
     while(1);
 

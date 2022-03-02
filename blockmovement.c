@@ -67,17 +67,6 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     //TODO implement
 }
 
-// this should be deleted later
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column)
-{
-    int r, c;
-    for (r = 0; r < 2 * 3; r++) {
-        for (c = 0; c < 4 * 3; c++) {
-            target[r + row][c + column] = tetrominos[ticks % 7][r / 3][c / 3];
-        }
-    }
-}
-
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS])
 {
     int r, c;

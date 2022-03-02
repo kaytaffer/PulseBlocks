@@ -44,7 +44,6 @@ if they've hit something underneath*/
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column); //TODO add comment
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS]);
 void getNextPiece();
 void getPiece();
