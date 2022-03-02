@@ -6,6 +6,7 @@ For copyright and licensing, see file COPYING */
 
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
+    uint8_t freefall = 1;
     int r = PIXELROWS; //iterator variable for rows
     int c = PIXELCOLUMNS; //iterator variable for columns
     for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
@@ -14,12 +15,12 @@ int screenTransition; //associated to fallingLineRepeat */
                 data[r][c] = 0;                 //make pixel black
                 data[r + pixelmoveamount][c] = 1;   //and make the one underneath white
                 if (background[r + pixelmoveamount + 1][c]){
-                    return 0;
+                    freefall = 0;
                 }
             }
         }
     }
-    return 1;
+    return freefall;
 }
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
@@ -105,5 +106,4 @@ void pieceDropped()
     writeToBackground(foreground, background);
     getPiece();
     getNextPiece();
-
 }
