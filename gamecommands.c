@@ -21,6 +21,8 @@ void pieceDropped()
         //TODO: Something
         ledTest();
     }
+    updateScore();
+    updatePulse(); // should be moved when pulse shit is implemented
     getPiece();
     getNextPiece();
 }

@@ -28,12 +28,17 @@
 
 int ticks;
 int nextPiece;
+int score;
+int pulse;
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
 all grown up
 */
 void gameSetUp();
+void updateScore();
+void showDigit(int digit, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showInt(int number, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
 /* blockmovement.c
 functions related to manipulating blocks
