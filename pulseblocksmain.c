@@ -4,6 +4,7 @@
 
 int main() {
     ticks = 0;
+    nextPiece = ticks % 7;
     
     showRandomPiece(foreground, DROPAREAROW, DROPAREACOLUMN);
 

@@ -6,9 +6,10 @@
 #define FONTWIDTH 3
 #define DROPAREAROW 67
 #define DROPAREACOLUMN 9 
-//#define NEXTAREAROW 
-//#define NEXTARECOLUMN 
+#define NEXTAREAROW 59
+#define NEXTAREACOLUMN 20
 int ticks;
+int nextPiece;
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -26,6 +27,10 @@ void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //mov
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
 void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column); //TODO add comment
+void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS]);
+void getNextPiece();
+void getPiece();
+void pieceDropped();
 
 /* displaycommands.c
 Functions related to OLED
