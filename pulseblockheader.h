@@ -1,14 +1,31 @@
 #include <stdint.h>
-
 #define PIXELROWS 128
 #define PIXELCOLUMNS 32
 #define PIXELMOVEAMOUNT 3
 #define FONTHEIGHT 5
 #define FONTWIDTH 3
-#define DROPAREAROW 67
-#define DROPAREACOLUMN 10 
-#define NEXTAREAROW 59
-#define NEXTAREACOLUMN 20
+#define BLOCKHEIGHT 3
+#define BLOCKWIDTH 5
+
+// game background constants
+
+#define SCOREBOARDSTART 7
+#define PULSEBOARDSTART 27
+#define TEXTBOXHEIGHT (4 + FONTHEIGHT) // 9
+
+#define GAMEBOARDHEIGHT (3 * 20 + 2) // 62
+#define GAMEBOARDSTART (PIXELROWS - GAMEBOARDHEIGHT) // 66
+
+#define NEXTBLOCKHEIGHT 10
+#define NEXTBLOCKROW /*(GAMEBOARDSTART - NEXTBLOCKHEIGHT + 1)*/ 57
+#define NEXTBLOCKWIDTH (3 * BLOCKWIDTH + 2) //14
+#define NEXTBLOCKCOLUMN (PIXELCOLUMNS - NEXTBLOCKWIDTH) // 18
+
+#define DROPAREAROW (GAMEBOARDSTART + 1)
+#define DROPAREACOLUMN 10
+#define NEXTAREAROW (NEXTBLOCKROW + 2)//59
+#define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
+
 int ticks;
 int nextPiece;
 
@@ -27,11 +44,9 @@ if they've hit something underneath*/
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS], uint8_t row, uint8_t column); //TODO add comment
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS]);
 void getNextPiece();
 void getPiece();
-
 
 /* displaycommands.c
 Functions related to OLED
@@ -72,8 +87,8 @@ const uint8_t font[37][FONTHEIGHT][FONTWIDTH]; //a matrix of bitmap font element
 /* gamecommands.c
 Functions related to menus or changes in the game state
 */
-int checkGameOver();
-void pieceDropped();
+int checkGameOver();/*Checks if a block already occupies the drop area, indicating game over*/
+void pieceDropped();//what to do when piece hits something underneath it
 
 /* input.c
 I/O input

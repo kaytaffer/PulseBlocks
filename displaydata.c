@@ -89,8 +89,8 @@ uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fi
 const uint8_t tetrominos[7][2][4] =
 {
     { //line
-        {1,1,1,1},
-        {0,0,0,0}
+        {0,0,0,0},
+        {1,1,1,1}
     },
     { //~L
         {1,0,0,0},
