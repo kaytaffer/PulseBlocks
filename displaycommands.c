@@ -110,7 +110,7 @@ void setBit(uint8_t *target, int bit, uint8_t setTo)
 
 // takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array
 // in the correct order for the screen
-void convertPixels(uint8_t data1[128][32], uint8_t data2[128][32], uint8_t screen[512]) {
+void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]) {
     int r, c;               // current row and column
     int scElement = 127;    // element of the screen array
     int bit;                // what bit of the uint8_t should be changed
@@ -132,7 +132,8 @@ void convertPixels(uint8_t data1[128][32], uint8_t data2[128][32], uint8_t scree
     }
 }
 
-void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
+// draws a horizontal line starting at startCol, startRow of specified length to the array dest
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
 {
     int c;
     for (c = startCol; c < startCol + length && c < 32; c++) {
@@ -140,7 +141,8 @@ void horizontalLine(int startCol, int startRow, int length, uint8_t dest[128][32
     }
 }
 
-void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
+// draws a vertical line starting at startCol, startRow of specified length to the array dest
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
 {
     int r;
     for (r = startRow; r < startRow + length && r < 128; r++) {
@@ -148,7 +150,8 @@ void verticalLine(int startCol, int startRow, int length, uint8_t dest[128][32])
     }
 }
 
-void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[128][32])
+// draws a rectangle starting at startRow, startCol of specified height and width to array dest
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
 {
     horizontalLine(startCol, startRow, width, dest);
     horizontalLine(startCol, startRow + height - 1, width, dest);
@@ -169,6 +172,7 @@ void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIX
 	}
 }
 
+// for use with the font "villefont": converts chars 0-9, A-Z and a-z (+ space) to corresponding villefont-element
 int charToElement(char c)
 {
     // in the array, 0-9 is element 0-9
@@ -180,19 +184,36 @@ int charToElement(char c)
     else return 36;
 }
 
-void showChar(char c, int startRow, int startCol, uint8_t dest[128][32])
+// adds a char to the array dest, starting at startRow, startCol
+void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
 {
     int x, y;
-    for (y = 0; y < 3; y++) {
-        for (x = 0; x < 5; x++)
+    for (y = 0; y < FONTWIDTH; y++) {
+        for (x = 0; x < FONTHEIGHT; x++)
             dest[x + startRow][y + startCol] = villefont[charToElement(c)][x][y];
     }
 }
 
-void showString(char str[], int startRow, int startCol, uint8_t dest[128][32])
+// adds a string to the array dest, starting at startRow, startCol
+void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
 {
     int i = 0;
     for (i = 0; str[i]; i++)
-        showChar(str[i], startRow, (startCol + 4 * i), dest);
+        showChar(str[i], startRow, (startCol + (FONTWIDTH + 1) * i), dest);
 
+}
+
+// sets up background for game
+void gameSetUp()
+{
+    showString("score", 0, 0, background);
+    drawRectangle(6, 0, 12, 32, background); //draws scoreboard
+    showString("pulse", 20, 0, background);
+    drawRectangle(26, 0, 12, 32, background);
+    showString("next", 58, 0, background);
+    drawRectangle(57, 18, 10, 14, background); //old: drawRectangle(57, 10, 10, 14, background); //draws next block area
+    drawRectangle(66, 0, 62, 32, background); //draws gameboard
+    
+    showString("0000000", 9, 2, background);
+    showString("0000000", 29, 2, background);
 }

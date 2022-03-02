@@ -57,8 +57,7 @@ void _on_bootstrap() {
     AD1PCFG = 0xFFFF; //Output pins set to digital
 
     /* Sets up output LEDs */
-    volatile int* trise = (int*) 0xbf886100;
-    *trise = *trise | 0xFF00;           // 1111 1111 XXXX XXXX
+    TRISE = TRISE | 0xFF00;           // 1111 1111 XXXX XXXX
     TRISECLR = 0xFF;                    //           0000 0000
     ODCE = 0x0;         //Turns off open drain mode for port E
 	PORTE = 0x0;        //turns them all off
@@ -97,8 +96,6 @@ void _on_bootstrap() {
 	enableInterrupt(); //calls enableInterrupt in pulseblocks.S. Enables interrupt flags to trigger custom Interrupt Service Routine
 
 	/*Sets upp game background*/
-	drawRectangle(66, 0, 62, 32, background); //draws gameboard
-	drawRectangle(0, 0, 12, 32, background); //draws scoreboard
-	drawRectangle(57, 10, 10, 14, background); //draws next block area
+    gameSetUp();
 	
 }
