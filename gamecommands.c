@@ -8,7 +8,7 @@ For copyright and licensing, see file COPYING */
 
 int checkGameOver(){ /*Checks if a block already occupies the drop area, indicating game over*/
     int gameOver = 0;
-    if(background[DROPAREAROW + 6][DROPAREACOLUMN + 6])
+    if(background[DROPROWPIXEL][DROPCOLUMNPIXEL])
         gameOver = 1;
     return gameOver;  
 }
@@ -18,8 +18,7 @@ void pieceDropped()
 {
     writeToBackground(foreground, background);
     if (checkGameOver()){
-        //TODO: Something
-        ledTest();
+        ledContent(0xff); //TODO: Something useful        
     }
     updateScore();
     updatePulse(); // should be moved when pulse shit is implemented

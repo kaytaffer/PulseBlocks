@@ -39,3 +39,7 @@ int ticksSinceStart = 0;
 void ledTest() {       //increases the LED:s in a binary fashion each time it is called
     PORTE = ++ticksSinceStart;  
 }
+
+void ledContent(int content) { //lights the LED:s in binary representation of argument up to 2^7.
+    PORTE = content;
+}
