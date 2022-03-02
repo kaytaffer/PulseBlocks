@@ -8,19 +8,21 @@ int randomSeed;
 int ticks;
 
 /* pulseblocksmain.c
-TODO: Functions in active development. Move these functions from main to a better home when they're all grown up
+TODO: Functions in active development. Move these functions from main to a better home when they're 
+all grown up
 */
 void gameSetUp();
 
 /* blockmovement.c
 functions related to manipulating blocks
 */
-int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Makes all elements in data array move to one lesser 
-position each time function is called. Returns 1 if elements remain free to fall, return 0 if they've hit something underneath*/ 
+int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); /* Makes all elements in data array 
+move to one lesser position each time function is called. Returns 1 if elements remain free to fall, return 0 
+if they've hit something underneath*/ 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix left
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount); //moves all elements in matrix right
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
-void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]);
+void showRandomPiece(uint8_t target[PIXELROWS][PIXELCOLUMNS]); //TODO add comment
 
 /* displaycommands.c
 Functions related to OLED
@@ -28,24 +30,35 @@ Functions related to OLED
 void iniateDisplay();               //Initiates the OLED
 uint8_t spiManipulate(uint8_t);     //Configures OLED or writes to display (depending on command or data mode)
 void displayImage(int x, uint8_t *bitmap);    //used to display the supplied bitmap to OLED with x offset
-// ___________void displayPrint();       //Used by displayString to interprets and prints symbols to screen 
-// ___________void displayString(int line, char *s);  //Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters/
 void setBit(uint8_t *target, int bit, uint8_t setTo); //
-void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]); //
-void horizontalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
-void verticalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
-void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
-void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]); //writes the set contents of one data matrix onto another
+void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]); /* 
+takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array in the 
+correct order for the screen */
+void horizontalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* draws a 
+horizontal line starting at startCol, startRow of specified length to the array dest */
+void verticalLine(int startCol, int startRow, int length, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* draws a 
+vertical line starting at startCol, startRow of specified length to the array dest*/
+void drawRectangle(int startRow, int startCol, int height, int width, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /*
+draws a rectangle starting at startRow, startCol of specified height and width to array dest */
+void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS]); /* writes 
+the set contents of one data matrix onto another */
+int charToElement(char c); /* for use with the font[][][]: converts chars 0-9, A-Z and a-z (+ space) to 
+corresponding font-element */
+void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* adds a char to the 
+array dest, starting at startRow, startCol */
+void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* adds a string 
+to the array dest, starting at startRow, startCol */
 
 /* displaydata.c
 Data arrays and extern/global variables
 */ 
 extern uint8_t display[512]; //Bitmap array for writing to the display
-extern uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for moving objects, to send to the display */
-extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send to the display */
-// ___________extern char textrows[4][16]; //allows for saving 16-character strings in 4 rows
-// ___________extern const uint8_t const font[128*8]; //A library that's used to convert characters into their corresponding symbols
-extern uint8_t tetrominos[7][2][4]; //matrix with bitmap arrays for the tetrominos
+extern uint8_t foreground[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for moving objects, to send 
+to the display */
+extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used for fixed objects, to send 
+to the display */
+const extern uint8_t tetrominos[7][2][4]; //matrix with bitmap arrays for the tetrominos
+const uint8_t font[37][FONTHEIGHT][FONTWIDTH]; //a matrix of bitmap font elements
 
 /* input.c
 I/O input
@@ -57,7 +70,8 @@ int getPulse();         //TODO: find right bits and make this work
 /* interrupthandler.c
 Interrupt Service Routine
 */
-void userISR(); //Handles all interrupts from I/O; switches, timers and the like. Has associated global variables 
+void userISR(); /* Handles all interrupts from I/O; switches, timers and the like. Has associated global 
+variables */
 
 /* assembly coded subroutines
 pulseblocks.S
@@ -72,9 +86,3 @@ contains functions used for testing new code and implementations*/
 void villeIO(); /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called
-
-/* related to font and writing strings */
-uint8_t villefont[37][FONTHEIGHT][FONTWIDTH];
-int charToElement(char c);
-void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
-void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);

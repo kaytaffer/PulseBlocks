@@ -63,45 +63,6 @@ void displayImage(int x, uint8_t *bitmap) {
 	}
 }
 
-//TODO Made obsolete by Ville, delete in its entirety? 
-/*
-void displayPrint(void) {
-	int i, j, k;
-	char c;
-	for(i = 0; i < 4; i++) {
-		PORTFCLR = 0x10; //Data/Command pin to accept command mode
-		spiManipulate(0x22);
-		spiManipulate(i);
-		
-		spiManipulate(0x0);
-		spiManipulate(0x10);
-		
-		PORTFSET = 0x10; //D/C pin to receive data mode
-		for(j = 0; j < 16; j++) {
-			c = textrows[i][j];
-			if(!(c & 0x80)){
-                for(k = 0; k < 8; k++)
-				  spiManipulate(font[c*8 + k]);
-            }
-		}
-	}
-}
-*/
-
-//TODO Made obsolete by Ville, delete in its entirety?
-/*Function that fills a row (in a matrix with up to 4 rows) with up to 16 characters
-void displayString(int row, char *c) {
-	int i; //iterator variable
-	for(i = 0; i < 16; i++)         //For the 16 spots in the character matrix
-		if(*c) {
-			textrows[row][i] = *c; //Sets the line contents to argument characters on argument line
-			c++;                    //moves to next char
-		} else
-			textrows[row][i] = ' '; //then fills the rest of the line with empty space
-  displayPrint();                     //calls function that interprets and prints symbols to screen 
-}
-*/
-
 // takes a target uint8_t, of which the bit with index "bit" is changed to "setTo"
 void setBit(uint8_t *target, int bit, uint8_t setTo)
 {
@@ -109,8 +70,8 @@ void setBit(uint8_t *target, int bit, uint8_t setTo)
     *target += (int) setTo << bit; // change the bit
 }
 
-// takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array
-// in the correct order for the screen
+/* takes a 32*128 array of pixels for the screen and converts it into a one dimensional 512-element array 
+in the correct order for the screen */
 void convertPixels(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIXELROWS][PIXELCOLUMNS], uint8_t screen[512]) {
     int r, c;               // current row and column
     int scElement = 127;    // element of the screen array
@@ -172,7 +133,7 @@ void writeToBackground(uint8_t data1[PIXELROWS][PIXELCOLUMNS], uint8_t data2[PIX
 	}
 }
 
-// for use with the font "villefont": converts chars 0-9, A-Z and a-z (+ space) to corresponding villefont-element
+// for use with the font "font": converts chars 0-9, A-Z and a-z (+ space) to corresponding font-element
 int charToElement(char c)
 {
     // in the array, 0-9 is element 0-9
@@ -190,7 +151,7 @@ void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELC
     int x, y;
     for (y = 0; y < FONTWIDTH; y++) {
         for (x = 0; x < FONTHEIGHT; x++)
-            dest[x + startRow][y + startCol] = villefont[charToElement(c)][x][y];
+            dest[x + startRow][y + startCol] = font[charToElement(c)][x][y];
     }
 }
 
@@ -211,9 +172,8 @@ void gameSetUp()
     showString("pulse", 20, 0, background);
     drawRectangle(26, 0, 12, 32, background);
     showString("next", 58, 0, background);
-    drawRectangle(57, 18, 10, 14, background); //old: drawRectangle(57, 10, 10, 14, background); //draws next block area
+    drawRectangle(57, 18, 10, 14, background); //draws next block area
     drawRectangle(66, 0, 62, 32, background); //draws gameboard
-    
     showString("0000000", 9, 2, background);
     showString("0000000", 29, 2, background);
 }
