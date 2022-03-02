@@ -25,7 +25,7 @@ void userISR() {
   if (getButtons()){
     pressedButton = getButtons();
   }
-  if(buttonquotient == 20){
+  if(buttonquotient == 15){
     if(pressedButton & 0b1000) //BTN 1
       leftMove(foreground, PIXELMOVEAMOUNT);
     if(pressedButton & 0b100){
@@ -39,12 +39,11 @@ void userISR() {
 
     convertPixels(foreground, background, display);
     displayImage(0, display);
-    delay(200); //modifies how quickly the user may input new commands through the buttons
     pressedButton = 0;
     buttonquotient = 0;
   }
 
-  if(blockFallQuotient == 30) {
+  if(blockFallQuotient == (30)) {
     blockFallQuotient = 0;
     if(!falling(foreground, 1)){                 
       pieceDropped();

@@ -52,7 +52,6 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]); //rotates active blocks
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS]);
 void getNextPiece();
 void getPiece();
-void pieceDropped();
 
 /* displaycommands.c
 Functions related to OLED
@@ -89,6 +88,12 @@ extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used
 to the display */
 const extern uint8_t tetrominos[7][2][4]; //matrix with bitmap arrays for the tetrominos
 const uint8_t font[37][FONTHEIGHT][FONTWIDTH]; //a matrix of bitmap font elements
+
+/* gamecommands.c
+Functions related to menus or changes in the game state
+*/
+int checkGameOver();/*Checks if a block already occupies the drop area, indicating game over*/
+void pieceDropped();//what to do when piece hits something underneath it
 
 /* input.c
 I/O input
