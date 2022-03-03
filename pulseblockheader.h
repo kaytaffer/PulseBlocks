@@ -41,6 +41,7 @@ all grown up
 */
 void gameSetUp();
 void updateScore();
+void updatePulse();
 void showDigit(int digit, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void showInt(int number, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
@@ -98,6 +99,8 @@ Functions related to menus or changes in the game state
 */
 int checkGameOver();/*Checks if a block already occupies the drop area, indicating game over*/
 void pieceDropped();//what to do when piece hits something underneath it
+int lineFull(int line);
+void clearLine(int line);
 
 /* input.c
 I/O input
