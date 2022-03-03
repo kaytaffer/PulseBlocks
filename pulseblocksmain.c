@@ -30,7 +30,7 @@ int main() {
     ticks = 0;
     nextPiece = ticks % 7;
     gameInProgress = 0;
-    
+
     while (1) {
         showMenu(); //show startup menu
             

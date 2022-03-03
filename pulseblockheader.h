@@ -28,7 +28,10 @@
 #define NEXTAREAROW (NEXTBLOCKROW + 2)//59
 #define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
 
+#define MAXGAMESPEED 29 
 
+int gameSpeed; //manages how quickly blocks fall
+int gameMode; //1-3: [time played, lines cleared, total points] which factor manages gameSpeed. 
 int ticks;
 int nextPiece;
 int score;
