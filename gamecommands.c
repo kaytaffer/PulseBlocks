@@ -39,16 +39,21 @@ int lineFull(int line) {
 }
 
 void clearLine(int line) {
-    int c, r;
+    int c, r, i;
     for (c = 2; c < PIXELCOLUMNS - 4; c++) {
         for (r = -1; r < 2; r++)
             background[line + r][c] = 0;
     }
-    for (r = line; r > GAMEBOARDSTART + 1; r--) {
+    for (r = line; r > GAMEBOARDSTART + 4; r--) {
         for (c = 2; c < PIXELCOLUMNS - 1; c++) {
             background[r - 1][c] = background[r-3 - 1][c];
             background[r][c] = background[r-3][c];
             background[r + 1][c] = background[r-3 + 1][c];
+        }
+        for (i = 2; i < PIXELCOLUMNS - 1; i++) {
+            background[GAMEBOARDSTART + 1][c] = 0;
+            background[GAMEBOARDSTART + 2][c] = 0;
+            background[GAMEBOARDSTART + 3][c] = 0;
         }
     }
     
