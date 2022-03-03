@@ -20,8 +20,6 @@ void userISR() {
     ticks++;
     IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.
       if (ticks == 0xFF) ticks = 0;
-    showInt(tetrominoCoord[0], 37, 0, background);
-    showInt(tetrominoCoord[1], 43, 0, background);
   }
 
   if (getButtons()){
