@@ -6,6 +6,7 @@ For copyright and licensing, see file COPYING */
 
 uint8_t rotationState = 0;
 uint8_t tetrominoType = 0;
+int tetrominoCoord[2];
 
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
@@ -22,6 +23,7 @@ int screenTransition; //associated to fallingLineRepeat */
             }
         }
     }
+    tetrominoCoord[0]++;
     return freefall;
 }
 
@@ -38,6 +40,7 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c - pixelmoveamount] = 1; //and make the one to the left white
+                    tetrominoCoord[1]--;
                 }
             }
         }
@@ -56,27 +59,18 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c + pixelmoveamount] = 1;   //and make the one to the right white
+                    tetrominoCoord[1]++;
                 }
             }
         }
     }
 }
 
+
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     int r, c; //iterator variables for rows and columns
-    int tetrominoCoord[2];
     int rotationMatrix[15][15]; //a subspace 
     int rotationDestination[15][15]; //that rotates
-    for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
-        for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
-            if(data[r][c]){                      //find the tetr0mino
-                tetrominoCoord[0] = r;
-                tetrominoCoord[1] = c;
-                r = 0;
-                c = PIXELCOLUMNS;
-            }
-        }
-    }
  
     //TODO blockspecific offset
 
@@ -94,7 +88,6 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
 
 //Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
         //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
-
 
     for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
         for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
@@ -135,4 +128,6 @@ void getPiece()
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     rotationState = 0;
     tetrominoType = nextPiece;
+    tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
+    tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
 }

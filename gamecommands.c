@@ -8,7 +8,7 @@ For copyright and licensing, see file COPYING */
 
 int checkGameOver(){ /*Checks if a block already occupies the drop area, indicating game over*/
     int gameOver = 0;
-    if(background[DROPROWPIXEL][DROPCOLUMNPIXEL])
+    if(background[DROPCENTERPIXELROW][DROPCENTERPIXELCOLUMN])
         gameOver = 1;
     return gameOver;  
 }
