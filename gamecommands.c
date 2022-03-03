@@ -23,6 +23,8 @@ void pieceDropped()
             clearLine(r); // remove line
             score += 10; // add score (30 per block line)
             r++;
+            if ((gameSpeed < MAXGAMESPEED) && (gameMode == 2)) 
+                gameSpeed++; //timing related to lines cleared 
         }
     }
     if (checkGameOver()){
@@ -30,6 +32,8 @@ void pieceDropped()
         while(1); //TODO: Something useful
     }
     updateScore();
+    if ((gameSpeed < MAXGAMESPEED) && (gameMode == 3)) 
+        gameSpeed = score / 10;//timing related to current score */
     updatePulse(); // should be moved when pulse shit is implemented
     getPiece();
     getNextPiece();

@@ -124,6 +124,5 @@ void getPiece()
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
     tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
-    ledContent(tetrominoCoord[1]);
     score++;
 }

@@ -6,6 +6,7 @@ int main() {
     ticks = 0;
     nextPiece = ticks % 7;
     
+    gameMode = 2;
     getNextPiece();
     getPiece();
     getNextPiece();
