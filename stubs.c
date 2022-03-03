@@ -83,8 +83,8 @@ void _on_bootstrap() {
 	PR2 = 0xC35;   //0xC35 = 3125 (the period): results in 100 timeouts per second
     
 	IFSCLR(0) = 0xfff; //Clears all interrupt flags
-	IPCSET(2)= 0x0c + 0x00; //sets interrupt priority timer2 to 3, subpriority 1
-	IPCSET(4)= 0x0c + 0x01; //sets interrupt priority Switches to 3, subpriority 0
+	IPCSET(2)= 0x0c + 0x01; //sets interrupt priority timer2 to 3, subpriority 1
+	IPCSET(4)= 0x0c + 0x00; //sets interrupt priority Switches to 3, subpriority 0
 	IECSET(0) = 0x00100; // Enable timer interrupts
 	IECSET(0) = 0x88880; // Enables switch 4-1 interrupts
 

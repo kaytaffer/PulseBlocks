@@ -211,7 +211,6 @@ void gameSetUp()
 
 void updateScore()
 {
-    score = 1234567; // DELETE THIS LATER
     if(score > 9999999)
         showString("ERROR  ", SCOREBOARDSTART + 2, 2, background);
     else
@@ -220,7 +219,6 @@ void updateScore()
 
 void updatePulse()
 {
-    pulse = 9876543; // DELETE THIS LATER
     if(pulse > 9999999)
         showString("ERROR  ", SCOREBOARDSTART + 2, 2, background);
     else

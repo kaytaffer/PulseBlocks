@@ -4,7 +4,7 @@ For copyright and licensing, see file COPYING */
 
 #include "pulseblockheader.h" /*project declarations */
 
-int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
+int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to a lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     uint8_t freefall = 1;
     int r, c; //iterator variables for rows and columns
@@ -25,7 +25,7 @@ int screenTransition; //associated to fallingLineRepeat */
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
-    int moved = 0;
+    uint8_t moved = 0;
     int r, c; //iterator variables for rows and columns
     for(c = 0; c < PIXELCOLUMNS; c++){          //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
@@ -45,10 +45,9 @@ int screenTransition; //associated to fallingLineRepeat */
     tetrominoCoord[1] -= moved;
 }
 
-
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
-    int moved = 0;
+    uint8_t moved = 0;
     int r, c; //iterator variables for rows and columns
     for(c = PIXELCOLUMNS - 1; c >= 0; c--){     //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
@@ -68,47 +67,41 @@ int screenTransition; //associated to fallingLineRepeat */
     tetrominoCoord[1] += moved;
 }
 
-void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
+void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active block clockwise
     int r, c; //iterator variables for rows and columns
-    int rotationMatrix[15][15]; //a subspace 
-    int rotationDestination[15][15]; //that rotates
+    uint8_t rotationMatrix[15][15]; //a subspace 
+    uint8_t rotationDestination[15][15]; //that rotates
     uint8_t checkRotOK = 1;
-
-    while ((tetrominoCoord[0] % 3) != 2){
+    while ((tetrominoCoord[0] % 3) != 2){ //enables falling pixel-by-pixel with maintained block alignment
         falling(foreground, 1);
     }
-    //TODO blockspecific offset
-
-    for(r = 0; r < 15; r++){
-        for(c = 0; c < 15; c++){
-            rotationMatrix[r][c] = data[tetrominoCoord[0]-7 + r][tetrominoCoord[1]- 7 + c]; //TODO real rotation
+    for(r = 0; r < 15; r++){        //row by row
+        for(c = 0; c < 15; c++){    //column by column
+            rotationMatrix[r][c] = data[tetrominoCoord[0]-7 + r][tetrominoCoord[1]- 7 + c]; //takes a snapshout around the block
         }
-    }
-    
-    for(r = 0; r < 15; r++){
-        for(c = 0; c < 15; c++){
-            rotationDestination[r][c] = rotationMatrix[14-c][r];
-            if(background[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c]) 
-                checkRotOK = 0;
+    } 
+    for(r = 0; r < 15; r++){            //row by row
+        for(c = 0; c < 15; c++){        //column by column
+            rotationDestination[r][c] = rotationMatrix[14-c][r];     //rotates the block
+            if(background[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c])  //Checks target area
+                checkRotOK = 0;                 //Don't rotate out of the world
         }
     }
     //Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
-            //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
+    //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
     if (checkRotOK){
         for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
             for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
                 data[r][c] = 0;                  //clear data (foreground probably)
             }
         }
-    
-        for (r = 0; r < 15; r++){
-            for (c = 0; c < 15; c++){
-                data[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c];
+        for (r = 0; r < 15; r++){       //row by row
+            for (c = 0; c < 15; c++){   //column by column
+                data[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c]; //Write rotaded matrix to data (foreground probably)
             }
         }
     }
 }
-
 
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS])
 {
