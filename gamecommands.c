@@ -17,10 +17,6 @@ int checkGameOver(){ /*Checks if a block already occupies the drop area, indicat
 void pieceDropped()
 {
     writeToBackground(foreground, background);
-    if(lineFull(tetrominoCoord[0])){
-        clearLine(tetrominoCoord[0]);
-        score++;
-    }
     if (checkGameOver()){
         ledContent(0xff); //TODO: Something useful        
     }

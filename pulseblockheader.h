@@ -34,8 +34,6 @@ int nextPiece;
 int score;
 int pulse;
 
-int tetrominoCoord[2];
-
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
 all grown up
@@ -99,8 +97,6 @@ Functions related to menus or changes in the game state
 */
 int checkGameOver();/*Checks if a block already occupies the drop area, indicating game over*/
 void pieceDropped();//what to do when piece hits something underneath it
-int lineFull(int line);
-void clearLine(int line);
 
 /* input.c
 I/O input

@@ -4,6 +4,8 @@ For copyright and licensing, see file COPYING */
 
 #include "pulseblockheader.h" /*project declarations */
 
+int tetrominoCoord[2];
+
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     uint8_t freefall = 1;
@@ -62,44 +64,43 @@ int screenTransition; //associated to fallingLineRepeat */
     }
 }
 
-
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     int r, c; //iterator variables for rows and columns
     int rotationMatrix[15][15]; //a subspace 
     int rotationDestination[15][15]; //that rotates
- 
+    uint8_t checkRotOK = 1;
+
     //TODO blockspecific offset
 
     for(r = 0; r < 15; r++){
         for(c = 0; c < 15; c++){
-            rotationMatrix[r][c] = foreground[tetrominoCoord[0]-7 + r][tetrominoCoord[1]- 7 + c]; //TODO real rotation
-        }
-    }
-
-    for(r = 0; r < 15; r++){
-        for(c = 0; c < 15; c++){
-            rotationDestination[r][c] = rotationMatrix[14-c][r];
-        }
-    }
-
-//Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
-        //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
-
-    for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
-        for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
-            foreground[r][c] = 0;                  //clear foreground
-        }
-    }
-    uint8_t checkRotOK = 1;
-
-    for (r = 0; r < 15; r++){
-        for (c = 0; c < 15; c++){
-            foreground[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c];
+            rotationMatrix[r][c] = data[tetrominoCoord[0]-7 + r][tetrominoCoord[1]- 7 + c]; //TODO real rotation
         }
     }
     
-    delay(200);
-    /**/
+    for(r = 0; r < 15; r++){
+        for(c = 0; c < 15; c++){
+            rotationDestination[r][c] = rotationMatrix[14-c][r];
+            if(background[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c]) 
+                checkRotOK = 0;
+        }
+    }
+    //Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
+            //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
+    if (checkRotOK){
+        for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
+            for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
+                data[r][c] = 0;                  //clear data (foreground probably)
+            }
+        }
+    
+        for (r = 0; r < 15; r++){
+            for (c = 0; c < 15; c++){
+                data[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c];
+            }
+        }
+    }
+    delay(50); //very important user experience delay
 }
 
 

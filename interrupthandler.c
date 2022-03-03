@@ -22,15 +22,6 @@ void userISR() {
       if (ticks == 0xFF) ticks = 0;
   }
 
-    if(blockFallQuotient == (30)) {
-    blockFallQuotient = 0;
-    if(!falling(foreground, 1)){                 
-      pieceDropped();
-    }
-    convertPixels(foreground, background, display);
-    displayImage(0, display);
-  }
-  
   if (getButtons()){
     pressedButton = getButtons();
   }
@@ -40,6 +31,7 @@ void userISR() {
     if(pressedButton & 0b100){
       while(falling(foreground, 1)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
       pieceDropped();
+      delay(50);
     }
     if(pressedButton & 0b10){
       rotate(foreground);
@@ -53,7 +45,14 @@ void userISR() {
     buttonquotient = 0;
   }
 
-
+  if(blockFallQuotient == (30)) {
+    blockFallQuotient = 0;
+    if(!falling(foreground, 1)){                 
+      pieceDropped();
+    }
+    convertPixels(foreground, background, display);
+    displayImage(0, display);
+  }
 
   if(IFS(0) & 0x080000){ //Switch 4 interrupt
     IFSCLR(0) = 0x080000; // Resets the interrupt flag for SW4 to 0. 
