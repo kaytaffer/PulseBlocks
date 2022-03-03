@@ -28,6 +28,16 @@ void userISR() {
   if (getButtons()){
     pressedButton = getButtons();
   }
+    
+    // BUTTONS WHILE NOT IN GAME:
+    if(pressedButton == 0b0001 && !gameInProgress) {
+        gameInProgress = 1;
+    }
+    if(pressedButton == 0b0010 && !gameInProgress) {
+        // HIGH SCORE
+    }
+    
+    // BUTTON WHILE IN GAME:
   if(buttonquotient == 15){
     if(pressedButton & 0b1000) //BTN 1
       leftMove(foreground, PIXELMOVEAMOUNT);
@@ -36,7 +46,7 @@ void userISR() {
       pieceDropped();
       delay(100);
     }
-    if(pressedButton & 0b10) 
+    if(pressedButton & 0b10)
       rotate(foreground);
       delay(100);
     if(pressedButton & 0b1)

@@ -27,10 +27,14 @@ void pieceDropped()
                 gameSpeed++; //timing related to lines cleared 
         }
     }
+    updateScore();
+    updatePulse(); // should be moved when pulse shit is implemented
     if (checkGameOver()){
         ledContent(0xaa);
-        while(1); //TODO: Something useful
+        gameInProgress = 0;
+        return;
     }
+
     updateScore();
     if ((gameSpeed < MAXGAMESPEED) && (gameMode == 3)) 
         gameSpeed = score / 10;//timing related to current score */

@@ -37,6 +37,7 @@ int nextPiece;
 int score;
 int pulse;
 int tetrominoCoord[2]; //The coordinates of an actively falling tetromino
+int gameInProgress;
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -85,6 +86,7 @@ void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELC
 array dest, starting at startRow, startCol */
 void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* adds a string 
 to the array dest, starting at startRow, startCol */
+void clearScreen();
 
 /* displaydata.c
 Data arrays and extern/global variables
