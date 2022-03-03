@@ -4,8 +4,6 @@ For copyright and licensing, see file COPYING */
 
 #include "pulseblockheader.h" /*project declarations */
 
-int tetrominoCoord[2];
-
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     uint8_t freefall = 1;
