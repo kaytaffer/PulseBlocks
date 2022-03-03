@@ -31,11 +31,11 @@ void userISR() {
     if(pressedButton & 0b100){
       while(falling(foreground, 1)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
       pieceDropped();
-      delay(50);
+      delay(100);
     }
-    if(pressedButton & 0b10){
+    if(pressedButton & 0b10) 
       rotate(foreground);
-    }
+      delay(100);
     if(pressedButton & 0b1)
       rightMove(foreground, PIXELMOVEAMOUNT); 
 
@@ -43,6 +43,8 @@ void userISR() {
     displayImage(0, display);
     pressedButton = 0;
     buttonquotient = 0;
+// showInt(tetrominoCoord[0], 37, 0, background);
+// showInt(tetrominoCoord[1], 43, 0, background); //TODO, remove these testers when done.
   }
 
   if(blockFallQuotient == (30)) {

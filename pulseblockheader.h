@@ -33,6 +33,7 @@ int ticks;
 int nextPiece;
 int score;
 int pulse;
+int tetrominoCoord[2]; //The coordinates of an actively falling tetromino
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 

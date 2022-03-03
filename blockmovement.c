@@ -4,8 +4,6 @@ For copyright and licensing, see file COPYING */
 
 #include "pulseblockheader.h" /*project declarations */
 
-int tetrominoCoord[2];
-
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     uint8_t freefall = 1;
@@ -27,6 +25,7 @@ int screenTransition; //associated to fallingLineRepeat */
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
+    int moved = 0;
     int r, c; //iterator variables for rows and columns
     for(c = 0; c < PIXELCOLUMNS; c++){          //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
@@ -38,14 +37,18 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c - pixelmoveamount] = 1; //and make the one to the left white
-                    tetrominoCoord[1]--;
+                    moved = pixelmoveamount;
                 }
             }
         }
     }
+    tetrominoCoord[1] -= moved;
 }
+
+
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
+    int moved = 0;
     int r, c; //iterator variables for rows and columns
     for(c = PIXELCOLUMNS - 1; c >= 0; c--){     //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
@@ -57,11 +60,12 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c + pixelmoveamount] = 1;   //and make the one to the right white
-                    tetrominoCoord[1]++;
+                    moved = pixelmoveamount;
                 }
             }
         }
     }
+    tetrominoCoord[1] += moved;
 }
 
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
@@ -70,6 +74,9 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
     int rotationDestination[15][15]; //that rotates
     uint8_t checkRotOK = 1;
 
+    while ((tetrominoCoord[0] % 3) != 2){
+        falling(foreground, 1);
+    }
     //TODO blockspecific offset
 
     for(r = 0; r < 15; r++){
@@ -100,7 +107,6 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
             }
         }
     }
-    delay(50); //very important user experience delay
 }
 
 
@@ -125,4 +131,5 @@ void getPiece()
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
     tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
+    ledContent(tetrominoCoord[1]);
 }
