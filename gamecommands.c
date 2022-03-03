@@ -17,10 +17,6 @@ int checkGameOver(){ /*Checks if a block already occupies the drop area, indicat
 void pieceDropped()
 {
     writeToBackground(foreground, background);
-    if(lineFull(tetrominoCoord[0])){
-        clearLine(tetrominoCoord[0]);
-        score++;
-    }
     if (checkGameOver()){
         ledContent(0xff); //TODO: Something useful        
     }
@@ -29,37 +25,3 @@ void pieceDropped()
     getPiece();
     getNextPiece();
 }
-
-int lineFull(int line) {
-    int c;
-    for (c = 2; c < PIXELCOLUMNS - 1; c++) {
-        if (!background[line][c]) return 0;
-    }
-    return 1;
-}
-
-void clearLine(int line) {
-    int c, r;
-    for (c = 2; c < PIXELCOLUMNS - 4; c++) {
-        for (r = -1; r < 2; r++)
-            background[line + r][c] = 0;
-    }
-    for (r = line; r > GAMEBOARDSTART + 1; r--) {
-        for (c = 2; c < PIXELCOLUMNS - 1; c++) {
-            background[r - 1][c] = background[r-3 - 1][c];
-            background[r][c] = background[r-3][c];
-            background[r + 1][c] = background[r-3 + 1][c];
-        }
-    }
-    
-}
-
-/*void clearLine(int line)
-{
-    int r,c;
-    for(r = line; r > GAMEBOARDHEIGHT; r--){
-        for(c = 1; c < 32; c++)
-        foreground[r][c] = background[r][c];
-        background[r][c] = 0;
-    }
-}*/

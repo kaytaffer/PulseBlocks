@@ -35,6 +35,7 @@ void userISR() {
     }
     if(pressedButton & 0b10){
       rotate(foreground);
+      delay(50);
     }
     if(pressedButton & 0b1)
       rightMove(foreground, PIXELMOVEAMOUNT); 
