@@ -32,19 +32,7 @@ int main() {
     gameInProgress = 0;
     
 
-    // -----
-    /*showMenu(); //show startup menu
-    while (!gameInProgress); // wait for game to start
-    clearScreen(); // clear screen
-    gameSetUp(); // set up background
-    // start game
-
     gameMode = 2;
-
-    getNextPiece();
-    getPiece();
-    getNextPiece();
-    while(1);*/
     
     while (1) {
         showMenu(); //show startup menu
