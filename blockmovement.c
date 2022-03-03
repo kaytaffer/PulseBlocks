@@ -100,6 +100,7 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
             }
         }
     }
+    delay(50); //very important user experience delay
 }
 
 
