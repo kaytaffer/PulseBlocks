@@ -7,8 +7,7 @@ For copyright and licensing, see file COPYING */
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
     uint8_t freefall = 1;
-    int r = PIXELROWS; //iterator variable for rows
-    int c = PIXELCOLUMNS; //iterator variable for columns
+    int r, c; //iterator variables for rows and columns
     for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
         for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
             if(data[r][c] == 1){                //If there's a white pixel
@@ -20,13 +19,14 @@ int screenTransition; //associated to fallingLineRepeat */
             }
         }
     }
+    tetrominoCoord[0]++;
     return freefall;
 }
 
 void leftMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
-    int r = PIXELROWS; //iterator variable for rows
-    int c = PIXELCOLUMNS; //iterator variable for columns
+    int r, c; //iterator variables for rows and columns
+    int moved = 0;
     for(c = 0; c < PIXELCOLUMNS; c++){          //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
             if(data[r][c]){                     //If there's a white pixel
@@ -37,15 +37,17 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c - pixelmoveamount] = 1; //and make the one to the left white
+                    moved = 1;
                 }
             }
         }
+        if (moved) tetrominoCoord[1] -= pixelmoveamount;
     }
 }
 void rightMove(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
 int screenTransition; //associated to fallingLineRepeat */ 
-    int r = PIXELROWS; //iterator variable for rows
-    int c = PIXELCOLUMNS; //iterator variable for columns
+    int r, c; //iterator variables for rows and columns
+    int moved = 0;
     for(c = PIXELCOLUMNS - 1; c >= 0; c--){     //column by column
         for(r = PIXELROWS - 1; r >= 0; r--) {   //row by row
             if(data[r][c]){                     //If there's a white pixel
@@ -56,15 +58,50 @@ int screenTransition; //associated to fallingLineRepeat */
                 else {                          //otherwise
                     data[r][c] = 0;                 //make pixel black
                     data[r][c + pixelmoveamount] = 1;   //and make the one to the right white
+                    moved = 1;
                 }
             }
         }
     }
-}
+        }
 
 void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
+    int r, c; //iterator variables for rows and columns
+    int rotationMatrix[15][15]; //a subspace
+    int rotationDestination[15][15]; //that rotates
+    uint8_t checkRotOK = 1;
 
-    //TODO implement
+    //TODO blockspecific offset
+
+    for(r = 0; r < 15; r++){
+        for(c = 0; c < 15; c++){
+            rotationMatrix[r][c] = data[tetrominoCoord[0]-7 + r][tetrominoCoord[1]- 7 + c]; //TODO real rotation
+        }
+    }
+
+    for(r = 0; r < 15; r++){
+        for(c = 0; c < 15; c++){
+            rotationDestination[r][c] = rotationMatrix[14-c][r];
+            if(background[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c])
+                checkRotOK = 0;
+        }
+    }
+    //Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
+            //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
+    if (checkRotOK){
+        for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
+            for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
+                data[r][c] = 0;                  //clear data (foreground probably)
+            }
+        }
+
+        for (r = 0; r < 15; r++){
+            for (c = 0; c < 15; c++){
+                data[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c];
+            }
+        }
+    }
+    delay(50); //very important user experience delay
 }
 
 void showPiece(int row, int col, int pieceID, uint8_t target[PIXELROWS][PIXELCOLUMNS])
@@ -86,5 +123,6 @@ void getNextPiece()
 void getPiece()
 {
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
-    
+    tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
+    tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
 }

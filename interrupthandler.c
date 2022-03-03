@@ -21,7 +21,7 @@ void userISR() {
     IFSCLR(0) = 0x0100; // Resets the interrupt flag for timer 2 to 0.
       if (ticks == 0xFF) ticks = 0;
   }
-
+/*
   if (getButtons()){
     pressedButton = getButtons();
   }
@@ -67,6 +67,6 @@ void userISR() {
   if(IFS(0) & 0x000080){ //Switch 1 interrupt
   IFSCLR(0) = 0x000080; // Resets the interrupt flag for SW1 to 0. 
   }
-  
+  */
 }
 

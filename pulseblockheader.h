@@ -23,6 +23,8 @@
 
 #define DROPAREAROW (GAMEBOARDSTART + 1)
 #define DROPAREACOLUMN 10
+#define DROPCENTERPIXELROW (DROPAREAROW + 4)
+#define DROPCENTERPIXELCOLUMN (DROPAREACOLUMN + 4)
 #define NEXTAREAROW (NEXTBLOCKROW + 2)//59
 #define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
 
@@ -30,6 +32,7 @@ int ticks;
 int nextPiece;
 int score;
 int pulse;
+int tetrominoCoord[2];
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
