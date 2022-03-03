@@ -72,7 +72,6 @@ void userISR() {
     deltaSpeed = 0;
     if ((gameSpeed < MAXGAMESPEED) && (gameMode == 1))
       gameSpeed++;
-    showInt(gameSpeed, 43, 0, background); //TODO, remove these testers when done.
   }
  /* Unused switch interrupts
   if(IFS(0) & 0x080000){ //Switch 4 interrupt
