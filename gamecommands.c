@@ -50,13 +50,12 @@ void clearLine(int line) {
             background[r][c] = background[r-3][c];
             background[r + 1][c] = background[r-3 + 1][c];
         }
-        for (i = 2; i < PIXELCOLUMNS - 1; i++) {
-            background[GAMEBOARDSTART + 1][c] = 0;
-            background[GAMEBOARDSTART + 2][c] = 0;
-            background[GAMEBOARDSTART + 3][c] = 0;
-        }
     }
-    
+    for (i = 2; i < PIXELCOLUMNS - 2; i++) {
+        background[GAMEBOARDSTART + 1][c] = 0;
+        background[GAMEBOARDSTART + 2][c] = 0;
+        background[GAMEBOARDSTART + 3][c] = 0;
+    }
 }
 
 /*void clearLine(int line)
