@@ -31,12 +31,16 @@ int main() {
     nextPiece = ticks % 7;
     gameInProgress = 0;
     
+
     // -----
     /*showMenu(); //show startup menu
     while (!gameInProgress); // wait for game to start
     clearScreen(); // clear screen
     gameSetUp(); // set up background
     // start game
+
+    gameMode = 2;
+
     getNextPiece();
     getPiece();
     getNextPiece();
