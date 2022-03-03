@@ -4,8 +4,6 @@ For copyright and licensing, see file COPYING */
 
 #include "pulseblockheader.h" /*project declarations */
 
-uint8_t rotationState = 0;
-uint8_t tetrominoType = 0;
 int tetrominoCoord[2];
 
 int falling(uint8_t data[PIXELROWS][PIXELCOLUMNS], int pixelmoveamount){ /* Makes all elements in data array move to one lesser position each time function is called 
@@ -94,14 +92,14 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active blocks
             foreground[r][c] = 0;                  //clear foreground
         }
     }
-    
+    uint8_t checkRotOK = 1;
+
     for (r = 0; r < 15; r++){
-        for (c = tetrominoCoord[1]; c < tetrominoCoord[1] + 15; c++){
+        for (c = 0; c < 15; c++){
             foreground[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c];
         }
     }
-    rotationState = (rotationState + 1) % 4;
-
+    
     delay(200);
     /**/
 }
@@ -126,8 +124,6 @@ void getNextPiece()
 void getPiece()
 {
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
-    rotationState = 0;
-    tetrominoType = nextPiece;
     tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
     tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
 }
