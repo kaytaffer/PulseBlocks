@@ -25,12 +25,13 @@ void pieceDropped()
             r++;
         }
     }
-    if (checkGameOver()){
-        ledContent(0xaa);
-        while(1); //TODO: Something useful
-    }
     updateScore();
     updatePulse(); // should be moved when pulse shit is implemented
+    if (checkGameOver()){
+        ledContent(0xaa);
+        gameInProgress = 0;
+        return;
+    }
     getPiece();
     getNextPiece();
 }
