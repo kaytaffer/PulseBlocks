@@ -87,6 +87,9 @@ array dest, starting at startRow, startCol */
 void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* adds a string 
 to the array dest, starting at startRow, startCol */
 void clearScreen();
+void showImage(uint8_t *image,int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showImage2(uint8_t image[23][21],int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showLogo(int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
 /* displaydata.c
 Data arrays and extern/global variables
@@ -98,6 +101,7 @@ extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used
 to the display */
 const extern uint8_t tetrominos[7][2][4]; //matrix with bitmap arrays for the tetrominos
 const uint8_t font[37][FONTHEIGHT][FONTWIDTH]; //a matrix of bitmap font elements
+uint8_t logo[23][21];
 
 /* gamecommands.c
 Functions related to menus or changes in the game state
