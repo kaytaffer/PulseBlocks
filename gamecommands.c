@@ -55,7 +55,7 @@ void clearLine(int line) {
         }
     }
     for (i = 2; i < PIXELCOLUMNS - 2; i++) {
-        background[GAMEBOARDSTART + 1][c] = 0;
+        background[GAMEBOARDSTART + 1][i] = 0;
     }
     convertPixels(foreground, background, display);
     displayImage(0, display);
