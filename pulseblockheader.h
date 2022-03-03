@@ -23,13 +23,17 @@
 
 #define DROPAREAROW (GAMEBOARDSTART + 1)
 #define DROPAREACOLUMN 10
+#define DROPCENTERPIXELROW (DROPAREAROW + 4)
+#define DROPCENTERPIXELCOLUMN (DROPAREACOLUMN + 4) 
 #define NEXTAREAROW (NEXTBLOCKROW + 2)//59
 #define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
+
 
 int ticks;
 int nextPiece;
 int score;
 int pulse;
+int tetrominoCoord[2]; //The coordinates of an actively falling tetromino
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -37,6 +41,7 @@ all grown up
 */
 void gameSetUp();
 void updateScore();
+void updatePulse();
 void showDigit(int digit, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void showInt(int number, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
@@ -94,6 +99,8 @@ Functions related to menus or changes in the game state
 */
 int checkGameOver();/*Checks if a block already occupies the drop area, indicating game over*/
 void pieceDropped();//what to do when piece hits something underneath it
+int lineFull(int line);
+void clearLine(int line);
 
 /* input.c
 I/O input
@@ -122,3 +129,4 @@ contains functions used for testing new code and implementations
 void villeIO(); /* reads which buttons &| switches are toggled and lights a corresponding LED 
 and prepares strings to print to display */
 void ledTest(); //increases the LED:s in a binary fashion each time it is called
+void ledContent(int); //lights the LED:s in binary representation of argument up to 2^7.
