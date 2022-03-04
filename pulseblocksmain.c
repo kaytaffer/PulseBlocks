@@ -3,6 +3,8 @@
 #include "pulseblockheader.h" /*project declarations */
 
 extern char hiScoreHolder[3];
+int pressedButton;
+
 void showMenu()
 {
     clearScreen(foreground);
@@ -47,7 +49,7 @@ void showEndMenu()
 
 int main() {
 
-    recordHighScore();
+    //recordHighScore();
 
     ticks = 0;
     nextPiece = ticks % 7;
@@ -58,7 +60,17 @@ int main() {
 
     while (1) {
         showMenu(); //show startup menu
-            
+        
+        while (!gameInProgress) {
+            if (getButtons()) pressedButton = getButtons();
+            if (pressedButton == 0b0001) {
+                gameInProgress = 1;
+            }
+            else if (pressedButton == 0b0010) {
+                //HS
+            }
+        }
+        
         while (!gameInProgress); // wait for game to start
         //ändra till !getButtons()
         if(gameInProgress == 1){ 
@@ -72,7 +84,29 @@ int main() {
             getPiece();
             getNextPiece();
 
-            while(gameInProgress); // wait for game to end
+            while(gameInProgress) // wait for game to end
+            {
+                if (getButtons()) {
+                    pressedButton = getButtons();
+                    if(pressedButton & 0b1000) //BTN 1
+                      leftMove(foreground, PIXELMOVEAMOUNT);
+                    if(pressedButton & 0b100){
+                      while(falling(foreground, 1)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
+                      pieceDropped();
+                      delay(100);
+                    }
+                    if(pressedButton & 0b10)
+                      rotate(foreground);
+                      delay(100);
+                    if(pressedButton & 0b1)
+                      rightMove(foreground, PIXELMOVEAMOUNT);
+                    convertPixels(foreground, background, display);
+                    displayImage(0, display);
+                    pressedButton = 0;
+                    //buttonquotient = 0;
+                // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done.
+                }
+            }
 
             showEndMenu();
             while (!getButtons()); // wait for button input

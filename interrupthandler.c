@@ -25,7 +25,7 @@ void userISR() {
       if (ticks == 0xFF) ticks = 0;
   }
 
-  if (getButtons()){
+  /*if (getButtons()){
     pressedButton = getButtons();
   }
     
@@ -35,10 +35,10 @@ void userISR() {
     }
     if(pressedButton == 0b0010 && !gameInProgress) {
         // HIGH SCORE
-    }
+    }*/
     
     // BUTTON WHILE IN GAME:
-  if((buttonquotient == 15) && (gameInProgress == 1)){
+  /*if((buttonquotient == 15) && (gameInProgress == 1)){
     if(pressedButton & 0b1000) //BTN 1
       leftMove(foreground, PIXELMOVEAMOUNT);
     if(pressedButton & 0b100){
@@ -56,7 +56,7 @@ void userISR() {
     pressedButton = 0;
     buttonquotient = 0;
 // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done. 
-  }
+  }*/
 
   if((blockFallQuotient > (30 - gameSpeed) && (gameInProgress == 1) )) {
     blockFallQuotient = 0;
