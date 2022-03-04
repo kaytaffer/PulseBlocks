@@ -91,8 +91,5 @@ void _on_bootstrap() {
     T2CONSET = 0x8000;              //start timer
     	
 	enableInterrupt(); //calls enableInterrupt in pulseblocks.S. Enables interrupt flags to trigger custom Interrupt Service Routine
-
-	/*Sets upp game background*/
-    gameSetUp();
 	
 }

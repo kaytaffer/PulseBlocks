@@ -224,3 +224,24 @@ void updatePulse()
     else
         showInt(pulse, PULSEBOARDSTART + 2, 2, background);
 }
+
+void clearScreen(uint8_t data[PIXELROWS][PIXELCOLUMNS])
+{
+    int r,c;
+    for(r = 0; r < PIXELROWS; r++){
+        for(c = 0; c < PIXELCOLUMNS; c++){
+            data[r][c] = 0;
+        }
+    }
+    convertPixels(foreground, background, display);
+    displayImage(0, display);
+}
+
+void showLogo(int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]) {
+    int r, c;
+    for (r = 0; r < 23; r++) {
+        for (c = 0; c < 21; c++) {
+            dest[r + startRow][c + startCol] = logo[r][c];
+        }
+    }
+}

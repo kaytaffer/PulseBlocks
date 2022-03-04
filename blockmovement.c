@@ -90,11 +90,7 @@ void rotate(uint8_t data[PIXELROWS][PIXELCOLUMNS]) { //rotates active block cloc
     //Counter clockwise rotation :    destination[r][c] = matrix[c][x-r];    (where x is matrix size minus 1)
     //Clockwise : destination[r][c] = matrix[x-c][r];      (where x is matrix size minus 1)
     if (checkRotOK){
-        for(r = PIXELROWS - 1; r >= 0; r--){        //row by row
-            for(c = 0; c < PIXELCOLUMNS; c++){      //column by column
-                data[r][c] = 0;                  //clear data (foreground probably)
-            }
-        }
+        clearScreen(foreground);  //clear data (foreground probably)
         for (r = 0; r < 15; r++){       //row by row
             for (c = 0; c < 15; c++){   //column by column
                 data[tetrominoCoord[0]-7+r][tetrominoCoord[1]-7+c] = rotationDestination[r][c]; //Write rotaded matrix to data (foreground probably)
@@ -124,6 +120,5 @@ void getPiece()
     showPiece(DROPAREAROW, DROPAREACOLUMN, nextPiece, foreground);
     tetrominoCoord[0] = DROPCENTERPIXELROW; //resets the tetraminotracker
     tetrominoCoord[1] = DROPCENTERPIXELCOLUMN;
-    ledContent(tetrominoCoord[1]);
     score++;
 }

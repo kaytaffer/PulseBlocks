@@ -28,12 +28,17 @@
 #define NEXTAREAROW (NEXTBLOCKROW + 2)//59
 #define NEXTAREACOLUMN (NEXTBLOCKCOLUMN + 2)//20
 
+#define MAXGAMESPEED 29 
 
+int gameSpeed; //manages how quickly blocks fall
+int gameMode; //1-3: [time played, lines cleared, total points] which factor manages gameSpeed. 
 int ticks;
 int nextPiece;
 int score;
 int pulse;
 int tetrominoCoord[2]; //The coordinates of an actively falling tetromino
+int gameInProgress;
+int showHighScore;
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -82,6 +87,10 @@ void showChar(char c, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELC
 array dest, starting at startRow, startCol */
 void showString(char str[], int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]); /* adds a string 
 to the array dest, starting at startRow, startCol */
+void clearScreen(uint8_t data[PIXELROWS][PIXELCOLUMNS]);
+void showImage(uint8_t *image,int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showImage2(uint8_t image[23][21],int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showLogo(int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 
 /* displaydata.c
 Data arrays and extern/global variables
@@ -93,6 +102,7 @@ extern uint8_t background[PIXELROWS][PIXELCOLUMNS];  /* Matrix of elements, used
 to the display */
 const extern uint8_t tetrominos[7][2][4]; //matrix with bitmap arrays for the tetrominos
 const uint8_t font[37][FONTHEIGHT][FONTWIDTH]; //a matrix of bitmap font elements
+uint8_t logo[23][21];
 
 /* gamecommands.c
 Functions related to menus or changes in the game state

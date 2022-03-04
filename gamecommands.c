@@ -23,13 +23,21 @@ void pieceDropped()
             clearLine(r); // remove line
             score += 10; // add score (30 per block line)
             r++;
+            if ((gameSpeed < MAXGAMESPEED) && (gameMode == 2)) 
+                gameSpeed++; //timing related to lines cleared 
         }
     }
+    updateScore();
+    updatePulse(); // should be moved when pulse shit is implemented
     if (checkGameOver()){
         ledContent(0xaa);
-        while(1); //TODO: Something useful
+        gameInProgress = 0;
+        return;
     }
+
     updateScore();
+    if ((gameSpeed < MAXGAMESPEED) && (gameMode == 3)) 
+        gameSpeed = score / 10;//timing related to current score */
     updatePulse(); // should be moved when pulse shit is implemented
     getPiece();
     getNextPiece();
@@ -55,7 +63,7 @@ void clearLine(int line) {
         }
     }
     for (i = 2; i < PIXELCOLUMNS - 2; i++) {
-        background[GAMEBOARDSTART + 1][c] = 0;
+        background[GAMEBOARDSTART + 1][i] = 0;
     }
     convertPixels(foreground, background, display);
     displayImage(0, display);
