@@ -38,7 +38,8 @@ int score;
 int pulse;
 int tetrominoCoord[2]; //The coordinates of an actively falling tetromino
 int gameInProgress;
-int showHighScore;
+int highScore;
+extern char hiScoreHolder[3];
 
 /* pulseblocksmain.c
 TODO: Functions in active development. Move these functions from main to a better home when they're 
@@ -91,6 +92,7 @@ void clearScreen(uint8_t data[PIXELROWS][PIXELCOLUMNS]);
 void showImage(uint8_t *image,int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void showImage2(uint8_t image[23][21],int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void showLogo(int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+char charCycler(char cycleChar);
 
 /* displaydata.c
 Data arrays and extern/global variables
@@ -111,6 +113,7 @@ int checkGameOver();/*Checks if a block already occupies the drop area, indicati
 void pieceDropped();//what to do when piece hits something underneath it
 int lineFull(int line);
 void clearLine(int line);
+void recordHighScore();
 
 /* input.c
 I/O input
