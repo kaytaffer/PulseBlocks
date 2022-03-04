@@ -4,7 +4,8 @@
 
 void showMenu()
 {
-    clearScreen();
+    clearScreen(foreground);
+    clearScreen(background);
     
     showLogo(5, 3, background);
     showString("1 START", 41, 0, background);
@@ -16,7 +17,8 @@ void showMenu()
 
 void showEndMenu()
 {
-    clearScreen();
+    clearScreen(foreground);
+    clearScreen(background);
     showString("YOU ", 0, 0, background);
     showString("LOST", 7, 0, background);
     
@@ -37,19 +39,28 @@ int main() {
         showMenu(); //show startup menu
             
         while (!gameInProgress); // wait for game to start
-        
-        clearScreen(); // clear screen
-        gameSetUp(); // set up background
-        
-        // start game
-        getNextPiece();
-        getPiece();
-        getNextPiece();
+        //ändra till !getButtons()
+        if(gameInProgress){ 
+            clearScreen(foreground);
+            clearScreen(background); 
+            gameSetUp(); // set up background
+            
+            // start game
+            getNextPiece();
+            getPiece();
+            getNextPiece();
 
-        while(gameInProgress); // wait for game to end
-        
-        showEndMenu();
-        while (!getButtons()); // wait for button input
+            while(gameInProgress); // wait for game to end
+
+            showEndMenu();
+            while (!getButtons()); // wait for button input
+        }
+        if(showHighScore)
+        {
+            clearScreen(foreground);
+            clearScreen(background); 
+        }
+
     }
     return 0;
 }
