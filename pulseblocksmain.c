@@ -89,22 +89,24 @@ int main() {
                 if (getButtons()) {
                     pressedButton = getButtons();
                     if(pressedButton & 0b1000) //BTN 1
-                      leftMove(foreground, PIXELMOVEAMOUNT);
+                        leftMove(foreground, PIXELMOVEAMOUNT);
                     if(pressedButton & 0b100){
-                      while(falling(foreground, 1)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
-                      pieceDropped();
-                      delay(100);
+                        T2CONSET = 0x0000;
+                        while(falling(foreground, 1)); //BTN2: Hard drop: Makes elements in an array fall until one hits something
+                        pieceDropped();
+                        delay(100);
+                        T2CONSET = 0x8000;
                     }
                     if(pressedButton & 0b10)
-                      rotate(foreground);
-                      delay(100);
+                        rotate(foreground);
+                        delay(100);
                     if(pressedButton & 0b1)
-                      rightMove(foreground, PIXELMOVEAMOUNT);
+                        rightMove(foreground, PIXELMOVEAMOUNT);
                     convertPixels(foreground, background, display);
                     displayImage(0, display);
                     pressedButton = 0;
                     //buttonquotient = 0;
-                // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done.
+                    // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done.
                 }
             }
 
