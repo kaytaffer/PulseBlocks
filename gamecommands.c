@@ -69,3 +69,38 @@ void clearLine(int line) {
     displayImage(0, display);
     delay(10);
 }
+
+char hiScoreHolder[3];
+void recordHighScore(){
+        int i; //iteration variable 
+
+    for(i = 0; i < 3; i++)
+        {hiScoreHolder[i] = 'A';}
+
+
+        while(!(getButtons() & 0b1000)){
+        int i; //iteration variable 
+        if(getButtons() & 0b1)
+            hiScoreHolder[0] = charCycler(hiScoreHolder[0]);
+        if(getButtons() & 0b10)
+            hiScoreHolder[1] = charCycler(hiScoreHolder[1]);                
+        if(getButtons() & 0b100)
+            hiScoreHolder[2] = charCycler(hiScoreHolder[2]);
+
+        showString("NEW", 0, 8, background);
+        showString("HIGH", 7, 6, background);
+        showString("SCORE", 14, 4, background);    
+        showString("WRITE", 28, 4, background);
+        showString("YOUR", 35, 6, background);
+        showString("TAG", 42, 8, background);
+            
+        for(i = 0; i < 3;i++)
+            showChar(hiScoreHolder[i], 56, 10 + 4 * i, background); //Writes fontrepresentation of hiScore to background-array
+
+        convertPixels(foreground, background, display);
+        displayImage(0, display);
+        delay(400);
+        clearScreen(background);
+    }
+
+}

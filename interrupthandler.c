@@ -38,7 +38,7 @@ void userISR() {
     }
     
     // BUTTON WHILE IN GAME:
-  if(buttonquotient == 15){
+  if((buttonquotient == 15) && (gameInProgress == 1)){
     if(pressedButton & 0b1000) //BTN 1
       leftMove(foreground, PIXELMOVEAMOUNT);
     if(pressedButton & 0b100){
@@ -58,7 +58,7 @@ void userISR() {
 // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done. 
   }
 
-  if(blockFallQuotient > (30 - gameSpeed)) {
+  if((blockFallQuotient > (30 - gameSpeed) && (gameInProgress == 1) )) {
     blockFallQuotient = 0;
     if(!falling(foreground, 1)){                 
       pieceDropped();

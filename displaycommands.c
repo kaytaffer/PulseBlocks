@@ -245,3 +245,12 @@ void showLogo(int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS])
         }
     }
 }
+
+char charCycler(char cycleChar) { //helper function used to cycle through chars A-Z
+    if (cycleChar > 0x59)       //if > Z
+        cycleChar = 0x41;       //then A
+    else 
+        cycleChar++;            //increase alphabetically
+    
+    return cycleChar;       
+}
