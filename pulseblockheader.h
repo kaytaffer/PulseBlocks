@@ -1,4 +1,5 @@
 #include <stdint.h>
+
 #define PIXELROWS 128
 #define PIXELCOLUMNS 32
 #define PIXELMOVEAMOUNT 3
@@ -50,6 +51,7 @@ void updateScore();
 void updatePulse();
 void showDigit(int digit, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
 void showInt(int number, int startRow, int startCol, uint8_t dest[PIXELROWS][PIXELCOLUMNS]);
+void showHighScore(); //Menu option to show current high score
 
 /* blockmovement.c
 functions related to manipulating blocks

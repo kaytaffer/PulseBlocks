@@ -72,13 +72,13 @@ void clearLine(int line) {
 
 char hiScoreHolder[3];
 void recordHighScore(){
-        int i; //iteration variable 
+    int i; //iteration variable 
+    highScore = score;
 
     for(i = 0; i < 3; i++)
-        {hiScoreHolder[i] = 'A';}
-
-
-        while(!(getButtons() & 0b1000)){
+        hiScoreHolder[i] = 'A';
+        
+    while(!(getButtons() & 0b1000)){
         int i; //iteration variable 
         if(getButtons() & 0b1)
             hiScoreHolder[0] = charCycler(hiScoreHolder[0]);

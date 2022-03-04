@@ -31,14 +31,20 @@ void userISR() {
     
     // BUTTONS WHILE NOT IN GAME:
     if(pressedButton == 0b0001 && !gameInProgress) {
-        gameInProgress = 1;
+      gameInProgress = 1;
     }
     if(pressedButton == 0b0010 && !gameInProgress) {
-        // HIGH SCORE
+      gameInProgress = 2;
+    }
+    if(pressedButton == 0b0100 && !gameInProgress) {
+      gameInProgress = 0;
+    }
+    if(pressedButton == 0b1000 && !gameInProgress) {
+      gameInProgress = 0;
     }
     
     // BUTTON WHILE IN GAME:
-  if((buttonquotient == 15) && (gameInProgress == 1)){
+  if((buttonquotient == 15)){
     if(pressedButton & 0b1000) //BTN 1
       leftMove(foreground, PIXELMOVEAMOUNT);
     if(pressedButton & 0b100){
@@ -58,7 +64,7 @@ void userISR() {
 // showInt(tetrominoCoord[0], 37, 0, background);//TODO, remove these testers when done. 
   }
 
-  if((blockFallQuotient > (30 - gameSpeed) && (gameInProgress == 1) )) {
+  if(blockFallQuotient > (30 - gameSpeed)) {
     blockFallQuotient = 0;
     if(!falling(foreground, 1)){                 
       pieceDropped();
