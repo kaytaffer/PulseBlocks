@@ -195,8 +195,8 @@ void gameSetUp()
     drawRectangle(SCOREBOARDSTART, 0, TEXTBOXHEIGHT, PIXELCOLUMNS, background);
     
     // pulseboard
-    showString("pulse", PULSEBOARDSTART - (FONTHEIGHT + 1), 0, background);
-    drawRectangle(PULSEBOARDSTART, 0, TEXTBOXHEIGHT, PIXELCOLUMNS, background);
+    /*showString("pulse", PULSEBOARDSTART - (FONTHEIGHT + 1), 0, background);
+    drawRectangle(PULSEBOARDSTART, 0, TEXTBOXHEIGHT, PIXELCOLUMNS, background);*/
     
     // next block
     //showString("next", NEXTBLOCKROW + 1, 0, background);
@@ -206,7 +206,7 @@ void gameSetUp()
     drawRectangle(GAMEBOARDSTART, 0, GAMEBOARDHEIGHT, PIXELCOLUMNS, background);
     
     showString("0000000", SCOREBOARDSTART + 2, 2, background);
-    showString("0000000", PULSEBOARDSTART + 2, 2, background);
+    //showString("0000000", PULSEBOARDSTART + 2, 2, background);
 }
 
 void updateScore()
@@ -219,10 +219,10 @@ void updateScore()
 
 void updatePulse()
 {
-    if(pulse > 9999999)
+    /*if(pulse > 9999999)
         showString("ERROR  ", SCOREBOARDSTART + 2, 2, background);
     else
-        showInt(pulse, PULSEBOARDSTART + 2, 2, background);
+        showInt(pulse, PULSEBOARDSTART + 2, 2, background);*/
 }
 
 void clearScreen(uint8_t data[PIXELROWS][PIXELCOLUMNS])
